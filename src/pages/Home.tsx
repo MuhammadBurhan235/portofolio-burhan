@@ -1,7 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "../supabaseClient";
+import { Banner } from "../components/Banner/Banner";
+import styleS from "../components/Slider/Slider.module.css";
+import "../App.css";
 
-interface Deppusat {
+interface DepPusat {
   id: string;
   nama: string;
 }
@@ -12,7 +15,7 @@ interface Kab {
 }
 
 export function Home() {
-  const [depPusatInfoList, setDepPusatInfoList] = useState<Deppusat[]>([]);
+  const [depPusatInfoList, setDepPusatInfoList] = useState<DepPusat[]>([]);
   const [kabInfoList, setKabInfoList] = useState<Kab[]>([]);
 
   useEffect(() => {
@@ -21,7 +24,7 @@ export function Home() {
       if (error) {
         console.error(error);
       } else {
-        setDepPusatInfoList(data || []);
+        setDepPusatInfoList(data);
       }
     };
 
@@ -34,7 +37,7 @@ export function Home() {
       if (error) {
         console.error(error);
       } else {
-        setKabInfoList(data || []);
+        setKabInfoList(data);
       }
     };
 
@@ -68,31 +71,22 @@ export function Home() {
 
   return (
     <div>
-      <button onClick={scrollToDepPusat}>Scroll to Dep Pusat</button>
-      <button onClick={scrollToKabInfo}>Scroll to Kab Info</button>
-      <button onClick={scrollNewArea}>Scroll to New Area</button>
-
-      <div ref={depPusatRef}>
-        <h2>Dep Pusat Info</h2>
-        <ul>
-          {depPusatInfoList.map((dep) => (
-            <li key={dep.id}>{dep.nama}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div ref={kabInfoRef}>
-        <h2>Kab Info</h2>
-        <ul>
-          {kabInfoList.map((kab) => (
-            <li key={kab.id}>{kab.nama}</li>
-          ))}
-        </ul>
-      </div>
-
       <div ref={newAreaRef}>
-        <h2>New Area</h2>
-        <p>This is the new area you can scroll to.</p>
+        <div className="area">
+          <div className="kontenArea">aaa</div>
+        </div>
+      </div>
+      <div ref={depPusatRef}>
+        <Banner banners={depPusatInfoList} />
+      </div>
+      <div ref={kabInfoRef}>
+        <Banner banners={kabInfoList} />
+      </div>
+      <div className="blur"></div>
+      <div className={styleS.navigasi2}>
+        <button onClick={scrollNewArea}>New Area</button>
+        <button onClick={scrollToDepPusat}>Dep Pusat Banner</button>
+        <button onClick={scrollToKabInfo}>Kabinet Info Banner</button>
       </div>
     </div>
   );
