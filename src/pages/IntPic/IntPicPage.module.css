@@ -1,0 +1,210 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #c04545;
+  background-image: repeating-linear-gradient(
+      to right,
+      transparent 0 100px,
+      #25283b22 100px 101px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 100px,
+      #25283b22 100px 101px
+    );
+}
+
+/* body::before {
+  position: absolute;
+  width: min(1400px, 90vw);
+  top: 10%;
+  left: 50%;
+  height: 90%;
+  transform: translateX(-50%);
+  content: "";
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top center;
+  pointer-events: none;
+} */
+.fullImage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/images/portofolio1.drawio.png");
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.3s;
+}
+.smallImageContainer {
+  position: absolute;
+}
+.smallImage {
+  cursor: pointer;
+  transition: filter 0.3s ease-in-out;
+}
+.tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tooltip {
+  visibility: visible;
+}
+.smallImage:hover {
+  filter: drop-shadow(0 0 7px rgb(249, 254, 0)) !important;
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+
+p {
+  margin: 0;
+}
+
+.popupClose {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.blur {
+  filter: blur(5px);
+}
+
+.slideshowContainer {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.slides {
+  display: none;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.card {
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  flex: 1 1 calc(33.333% - 20px);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.bannerContainer {
+  display: flex;
+  justify-content: space-between; /* Untuk memberi jarak antara dua banner */
+}
+
+/* BlinkEffect.module.css */
+
+.blink {
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0% {
+    filter: drop-shadow(0 0 7px rgb(249, 254, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 5px rgba(250, 254, 0, 0.071));
+  }
+  100% {
+    filter: drop-shadow(0 0 7px rgb(249, 254, 0));
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  /* .app .small-image-container img[data-popup="mobil"] {
+    content: url("../../assets/images/mobil1.png");
+  }
+
+  .app .small-image-container img[data-popup="restoran"] {
+    content: url("../../assets/images/restoran1.png");
+  } */
+  /* .small-image {
+    width: 10vw;
+    height: auto;
+  }
+  .tooltip {
+    width: 100px;
+    padding: 3px;
+  } */
+}
+@media (max-width: 480px) {
+  .smallImage {
+    width: 10vw;
+    height: auto;
+  }
+  .tooltip {
+    width: 80px;
+    padding: 2px;
+  }
+}

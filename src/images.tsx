@@ -13,6 +13,8 @@ import psdm from "../src/assets/images/psdm.png";
 import busdev from "../src/assets/images/busdev.png";
 import eksternal from "../src/assets/images/eksternal.png";
 import kemuslimahan from "../src/assets/images/kemuslimahan.png";
+import tv from "../src/assets/images/tv.drawio.png";
+import laptop from "../src/assets/images/laptop.drawio.png";
 
 export const images: { [key: string]: string } = {
   "Orion Amerta": orion,
@@ -30,4 +32,6 @@ export const images: { [key: string]: string } = {
   "Pengembangan Bisnis dan Kewirausahaan": busdev,
   Eksternal: eksternal,
   Kemuslimahan: kemuslimahan,
+  "TV PB": tv,
+  "Laptop PB": laptop,
 };

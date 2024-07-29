@@ -3,7 +3,8 @@ import { Modal } from "../Modal/Modal";
 import style from "./Slider.module.css";
 import { images } from "../../images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPause, faPlay, faList } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 interface SliderProps {
   sliders: { id: string; nama: string }[];
@@ -19,6 +20,7 @@ export function Slider({ sliders }: SliderProps) {
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<BannerItem | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const toggleAnimation = () => {
     setIsPaused(!isPaused);
@@ -28,6 +30,10 @@ export function Slider({ sliders }: SliderProps) {
     setSelectedItem(data);
     setSelectedCard(null); // Ensure only one type of content is selected
     setShowModal(true);
+  };
+
+  const goToListItemPage = () => {
+    navigate("/portofolio-burhan/list", { state: { items: sliders } });
   };
 
   const handleCardClick = (data: BannerItem) => {
@@ -97,9 +103,9 @@ export function Slider({ sliders }: SliderProps) {
         <button onClick={toggleAnimation}>
           <FontAwesomeIcon icon={isPaused ? faPlay : faPause} />
         </button>
-        {/* <button onClick={}>
+        <button onClick={goToListItemPage}>
           <FontAwesomeIcon icon={faList} />
-        </button> */}
+        </button>
       </div>
     </div>
   );
