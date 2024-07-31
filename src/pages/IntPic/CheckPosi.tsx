@@ -40,6 +40,24 @@ export function CheckPosi() {
           style={{ width: "21.5vw", height: "24vw" }}
         />
       </div>
+      <div
+        className={style.smallImageContainer}
+        style={{
+          bottom: isFullscreen ? "21.2vw" : "16.7vw",
+          left: isFullscreen ? "42.8vw" : "42.3vw",
+        }}
+      >
+        <img
+          src={images["CV"]}
+          alt="Small Image 1"
+          className={`${style.smallImage} ${style.blink}`}
+          data-popup="mobil"
+          style={{
+            width: isFullscreen ? "22.2vw" : "21.7vw",
+            height: isFullscreen ? "11.6vw" : "11.2vw",
+          }}
+        />
+      </div>
 
       {/* {popup === "mobil" && (
         <Popup

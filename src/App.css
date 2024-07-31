@@ -27,6 +27,18 @@ body {
   position: relative;
 } */
 
+.detail:hover {
+  background-color: rgb(249, 254, 0);
+  padding-right: 80px;
+}
+
+.detail {
+  margin-left: 400px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: padding-right 0.3s ease-in-out;
+}
+
 .kontenArea {
   position: absolute;
   background-color: transparent;
@@ -65,7 +77,16 @@ body {
   justify-content: center;
 }
 
-.cardList {
+/* Style for the cards inside the modal */
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding-top: 45px;
+}
+
+.cardList1 {
   color: #333;
   border: none;
   padding: 10px 20px;
@@ -77,4 +98,79 @@ body {
   width: 370px;
   height: 300px;
   background-color: black;
+}
+
+.cardList2 {
+  color: #333;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.cardDescription {
+  display: -webkit-box; /* Use a flexbox layout for webkit browsers */
+  -webkit-box-orient: vertical; /* Set the box orientation to vertical */
+  -webkit-line-clamp: 4; /* Limit the number of lines to 4 */
+  overflow: hidden; /* Hide the overflow text */
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
+  max-height: 6em; /* Set a max height based on the line height (4 lines * line-height) */
+  line-height: 1.5em; /* Adjust the line height as needed */
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.listGambarContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap as needed */
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.smallGambar {
+  width: 200px; /* Set a fixed width */
+  height: 115px; /* Set a fixed height */
+  transition: transform 1.5s ease-in-out;
+}
+
+.smallGambar:hover {
+  transform: scale(3); /* Adjust the scale as needed */
+  z-index: 10; /* Ensure the enlarged image stays on top */
+}
+
+.triangleDown {
+  width: 50px; /* Lebar segitiga */
+  height: 50px; /* Tinggi segitiga */
+  background: linear-gradient(to bottom, #c04545, rgb(249, 254, 0));
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+  animation: clickMe 1.5s infinite;
+  left: 25.5vw;
+}
+
+@keyframes clickMe {
+  0% {
+    gap: 2.5vw;
+  }
+  50% {
+    top: 2vw;
+  }
+  100% {
+    top: 2.5vw;
+  }
+}
+
+.listLogoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap as needed */
+  justify-content: center;
+  padding-bottom: 20px;
+  margin-left: 10%;
+}
+
+.smallLogo {
+  width: 35px; /* Set a fixed width */
+  height: 35px; /* Set a fixed height */
 }
