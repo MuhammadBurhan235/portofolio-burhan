@@ -14,7 +14,7 @@ interface Kab {
   nama: string;
 }
 
-export function Home() {
+export function TriDiAlFath() {
   const [depPusatInfoList, setDepPusatInfoList] = useState<DepPusat[]>([]);
   const [kabInfoList, setKabInfoList] = useState<Kab[]>([]);
 
@@ -77,16 +77,20 @@ export function Home() {
         </div>
       </div>
       <div ref={depPusatRef}>
-        <Banner banners={depPusatInfoList} />
+        <Banner
+          banners={depPusatInfoList}
+          konten="PUSAT"
+          kontenh1="DEPARTEMEN"
+        />
       </div>
       <div ref={kabInfoRef}>
-        <Banner banners={kabInfoList} />
+        <Banner banners={kabInfoList} konten="INFO" kontenh1="KABINET" />
       </div>
       <div className="blur"></div>
       <div className={styleS.navigasi2}>
         <button onClick={scrollNewArea}>New Area</button>
-        <button onClick={scrollToDepPusat}>Dep Pusat Banner</button>
-        <button onClick={scrollToKabInfo}>Kabinet Info Banner</button>
+        <button onClick={scrollToDepPusat}>Dept. Pusat Info</button>
+        <button onClick={scrollToKabInfo}>Kabinet Info </button>
       </div>
     </div>
   );

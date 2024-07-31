@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal } from "../Modal/Modal";
+import { ModalTriDi } from "../Modal/ModalTriDi";
 import style from "./Slider.module.css";
 import { images } from "../../images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -84,7 +84,7 @@ export function Slider({ sliders }: SliderProps) {
           </div>
         ))}
       </div>
-      <Modal show={showModal} onClose={handleCloseModal}>
+      <ModalTriDi show={showModal} onClose={handleCloseModal}>
         {selectedItem ? (
           <img className={style.modalImage} src={selectedItem} alt="Selected" />
         ) : selectedCard ? (
@@ -98,7 +98,7 @@ export function Slider({ sliders }: SliderProps) {
             </p>
           </>
         ) : null}
-      </Modal>
+      </ModalTriDi>
       <div className={style.navigasi1}>
         <button onClick={toggleAnimation}>
           <FontAwesomeIcon icon={isPaused ? faPlay : faPause} />

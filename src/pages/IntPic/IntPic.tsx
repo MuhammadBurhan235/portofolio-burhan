@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "../../components/Modal/Modal";
 
 interface IntPic {
+  id: number;
   tipe: string;
   nama: string;
   w_win: string;
@@ -20,6 +21,7 @@ interface IntPic {
 }
 
 interface IntPicData {
+  id: number;
   tipe: string;
   nama: string;
   dekripsi: string;
@@ -148,9 +150,10 @@ export function IntPic() {
           <div>
             {selectedImage.nama === "TV PB" ? (
               <>
-                <h3>{selectedImage.keterangan}</h3>
+                <h3 style={{ color: "white" }}>{selectedImage.keterangan}</h3>
                 <div className="cardContainer">
                   {intPicDatas
+                    .sort((a, b) => a.id - b.id)
                     .filter(
                       (intPicData) => intPicData.tipe === selectedImage.nama
                     )
@@ -209,7 +212,7 @@ export function IntPic() {
                               ? "Website"
                               : [
                                   "TVent Web Dev (BE = FE)",
-                                  "E-Lon Mobile App Dev (FE = BE)",
+                                  "E-Lon Mobile App Dev (BE = FE)",
                                 ].includes(intPicData.nama)
                               ? "GitHub"
                               : "Website"}
@@ -236,9 +239,10 @@ export function IntPic() {
               </>
             ) : selectedImage.nama === "Files" ? (
               <>
-                <h3>{selectedImage.keterangan}</h3>
+                <h3 style={{ color: "white" }}>{selectedImage.keterangan}</h3>
                 <div className="cardContainer">
                   {intPicDatas
+                    .sort((a, b) => a.id - b.id)
                     .filter(
                       (intPicData) => intPicData.tipe === selectedImage.nama
                     )
@@ -267,27 +271,31 @@ export function IntPic() {
             <>
               <h3>Ada apa aja sih...</h3>
               <div className="cardContainer">
-                {selectedListPic.map((pic, index) => (
-                  <div
-                    key={index}
-                    className="cardList2"
-                    style={{
-                      width: "350px",
-                      height: "300px",
-                    }}
-                  >
-                    <h3 style={{ paddingBottom: "20px" }}>{pic.keterangan}</h3>
-                    <img
+                {selectedListPic
+                  .sort((a, b) => a.id - b.id)
+                  .map((pic, index) => (
+                    <div
+                      key={index}
+                      className="cardList2"
                       style={{
-                        position: "relative",
-                        width: "170px",
-                        height: "132px",
+                        width: "350px",
+                        height: "300px",
                       }}
-                      src={images[pic.nama]}
-                      alt=""
-                    />
-                  </div>
-                ))}
+                    >
+                      <h3 style={{ paddingBottom: "20px" }}>
+                        {pic.keterangan}
+                      </h3>
+                      <img
+                        style={{
+                          position: "relative",
+                          width: "170px",
+                          height: "132px",
+                        }}
+                        src={images[pic.nama]}
+                        alt=""
+                      />
+                    </div>
+                  ))}
               </div>
             </>
           )

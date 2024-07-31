@@ -4,10 +4,11 @@ import App from "./App.tsx";
 import "./index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "./pages/Home.tsx";
 import { IntPic } from "./pages/IntPic/IntPic.tsx";
 import { List } from "./pages/List.tsx";
 import { CheckPosi } from "./pages/IntPic/CheckPosi.tsx";
+import { TriDiAlFath } from "./pages/TriDiAlFath.tsx";
+import { IntPicAlFath } from "./pages/IntPic/IntPicAlFath.tsx";
 
 const router = createBrowserRouter([
   {
@@ -16,11 +17,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/portofolio-burhan/",
-        element: <Home />,
+        element: <IntPic />,
       },
       {
-        path: "/portofolio-burhan/intpic",
-        element: <IntPic />,
+        path: "/portofolio-burhan/tridialfath",
+        element: <TriDiAlFath />,
+      },
+      {
+        path: "/portofolio-burhan/intpicalfath",
+        element: <IntPicAlFath />,
       },
       {
         path: "/portofolio-burhan/list",

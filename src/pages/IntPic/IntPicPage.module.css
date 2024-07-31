@@ -39,6 +39,17 @@ body {
   background-position: center;
   transition: filter 0.3s;
 }
+
+.fullImageAlFath {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/images/sekrelandscape.jpg");
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.3s;
+}
+
 .smallImageContainer {
   position: absolute;
 }

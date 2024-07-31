@@ -57,3 +57,33 @@
 .modalClose:hover {
   padding-right: 68px;
 }
+
+.modalOverlay3d {
+  width: 500px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0.179);
+  padding: 10px;
+  border-radius: 5px;
+  top: 10px;
+  position: absolute;
+}
+
+.modalContent3d {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.modalClose3d {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}

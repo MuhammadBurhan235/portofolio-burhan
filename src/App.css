@@ -68,10 +68,10 @@ body {
 .kontenArea2 {
   width: 100%;
   max-width: 1150px;
-  background-color: rgba(255, 255, 255, 0.179);
+  background-color: white;
   gap: 10px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
