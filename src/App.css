@@ -70,7 +70,7 @@ body {
   max-width: 1150px;
   background-color: white;
   gap: 10px;
-  padding: 10px;
+  padding: 20px;
   border-radius: 15px;
   display: flex;
   flex-wrap: wrap;
@@ -88,16 +88,21 @@ body {
 
 .cardList1 {
   color: #333;
-  border: none;
-  padding: 10px 20px;
+  border: 1px solid #333;
+  padding: 20px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
-  border-radius: 5px;
-  width: 370px;
-  height: 300px;
-  background-color: black;
+  border-radius: 15px;
+  width: 270px;
+  height: auto;
+  background-color: transparent;
+}
+
+.cardList1:hover {
+  background-color: #c04545;
+  color: white;
 }
 
 .cardList2 {
@@ -173,4 +178,15 @@ body {
 .smallLogo {
   width: 35px; /* Set a fixed width */
   height: 35px; /* Set a fixed height */
+}
+
+.backButton {
+  color: white;
+  background-color: #c04545;
+  transition: padding-left 0.3s ease-in-out;
+}
+
+.backButton:hover {
+  background-color: #c04545;
+  padding-left: 80px !important;
 }

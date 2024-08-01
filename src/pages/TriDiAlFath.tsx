@@ -64,9 +64,6 @@ export function TriDiAlFath() {
 
   const scrollNewArea = () => {
     newAreaRef.current?.scrollIntoView({ behavior: "smooth" });
-    // setTimeout(() => {
-    //   navigate("/list", { state: { items: kabInfoList } });
-    // }, 500);
   };
 
   return (
@@ -79,12 +76,12 @@ export function TriDiAlFath() {
       <div ref={depPusatRef}>
         <Banner
           banners={depPusatInfoList}
-          konten="PUSAT"
-          kontenh1="DEPARTEMEN"
+          konten1="PUSAT"
+          konten2="DEPARTEMEN"
         />
       </div>
       <div ref={kabInfoRef}>
-        <Banner banners={kabInfoList} konten="INFO" kontenh1="KABINET" />
+        <Banner banners={kabInfoList} konten1="INFO" konten2="KABINET" />
       </div>
       <div className="blur"></div>
       <div className={styleS.navigasi2}>

@@ -3,17 +3,17 @@ import style from "./Banner.module.css";
 
 interface BannerProps {
   banners: { id: string; nama: string }[];
-  konten: string;
-  kontenh1: string;
+  konten1: string;
+  konten2: string;
 }
 
-export function Banner({ banners, konten, kontenh1 }: BannerProps) {
+export function Banner({ banners, konten1, konten2 }: BannerProps) {
   return (
     <div className={style.banner}>
-      <Slider sliders={banners} />
+      <Slider sliders={banners} konten={konten2 + " " + konten1} />
       <div className={style.content}>
-        <h1 data-content={konten} className={style.contenth1}>
-          {kontenh1}
+        <h1 data-content={konten1} className={style.contenth1}>
+          {konten2}
         </h1>
       </div>
     </div>

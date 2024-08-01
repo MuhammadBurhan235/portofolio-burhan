@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 interface SliderProps {
   sliders: { id: string; nama: string }[];
+  konten: string;
 }
 
 interface BannerItem {
@@ -15,7 +16,7 @@ interface BannerItem {
   nama: string;
 }
 
-export function Slider({ sliders }: SliderProps) {
+export function Slider({ sliders, konten }: SliderProps) {
   const [isPaused, setIsPaused] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<BannerItem | null>(null);
@@ -33,7 +34,7 @@ export function Slider({ sliders }: SliderProps) {
   };
 
   const goToListItemPage = () => {
-    navigate("/portofolio-burhan/list", { state: { items: sliders } });
+    navigate("/portofolio-burhan/list", { state: { items: sliders, konten } });
   };
 
   const handleCardClick = (data: BannerItem) => {
