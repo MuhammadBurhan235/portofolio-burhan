@@ -1,8 +1,33 @@
 import { Slider } from "../Slider/Slider";
 import style from "./Banner.module.css";
 
+interface DepPusat {
+  id: number;
+  nama: string;
+}
+
+interface Kab {
+  id: number;
+  nama: string;
+}
+
+interface IntPicData {
+  id: number;
+  tipe: string;
+  nama: string;
+  dekripsi: string;
+  periode: string;
+  link: string;
+  jenis: string;
+  lokasi: string;
+  width: string;
+  height: string;
+  list_gambar: string;
+  keterangan: string;
+}
+
 interface BannerProps {
-  banners: { id: string; nama: string }[];
+  banners: (DepPusat | Kab | IntPicData)[];
   konten1: string;
   konten2: string;
 }

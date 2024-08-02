@@ -92,8 +92,6 @@ body {
   padding: 20px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
   border-radius: 15px;
   width: 270px;
   height: auto;
@@ -172,7 +170,6 @@ body {
   gap: 10px; /* Adjust the gap as needed */
   justify-content: center;
   padding-bottom: 20px;
-  margin-left: 10%;
 }
 
 .smallLogo {

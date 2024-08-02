@@ -88,14 +88,19 @@ export function IntPic() {
     setShowModal(false);
   };
 
+  // const processImages = (list_gambar: string): string[] => {
+  //   const result = [];
+  //   for (let i = 0; i < list_gambar.length; i += 4) {
+  //     result.push(list_gambar.slice(i, i + 4));
+  //   }
+  //   return result;
+  // };
   const processImages = (list_gambar: string): string[] => {
-    const result = [];
-    for (let i = 0; i < list_gambar.length; i += 4) {
-      result.push(list_gambar.slice(i, i + 4));
+    if (!list_gambar) {
+      return [];
     }
-    return result;
+    return list_gambar.split(";");
   };
-
   const processLogos = (keterangan: string): string[] => {
     if (!keterangan) {
       return [];

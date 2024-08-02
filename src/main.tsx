@@ -9,12 +9,17 @@ import { List } from "./pages/List.tsx";
 import { CheckPosi } from "./pages/IntPic/CheckPosi.tsx";
 import { TriDiAlFath } from "./pages/TriDiAlFath.tsx";
 import { IntPicAlFath } from "./pages/IntPic/IntPicAlFath.tsx";
+import { TriDIPorto } from "./pages/TriDi/TriDIPorto.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/portofolio-burhan/",
     element: <App />,
     children: [
+      {
+        path: "/portofolio-burhan/tridiporto",
+        element: <TriDIPorto />,
+      },
       {
         path: "/portofolio-burhan/",
         element: <IntPic />,

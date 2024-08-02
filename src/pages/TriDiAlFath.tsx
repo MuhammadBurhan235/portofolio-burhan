@@ -5,12 +5,12 @@ import styleS from "../components/Slider/Slider.module.css";
 import "../App.css";
 
 interface DepPusat {
-  id: string;
+  id: number;
   nama: string;
 }
 
 interface Kab {
-  id: string;
+  id: number;
   nama: string;
 }
 
@@ -62,7 +62,7 @@ export function TriDiAlFath() {
     // }, 500);
   };
 
-  const scrollNewArea = () => {
+  const scrollToNewArea = () => {
     newAreaRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -85,7 +85,7 @@ export function TriDiAlFath() {
       </div>
       <div className="blur"></div>
       <div className={styleS.navigasi2}>
-        <button onClick={scrollNewArea}>New Area</button>
+        <button onClick={scrollToNewArea}>New Area</button>
         <button onClick={scrollToDepPusat}>Dept. Pusat Info</button>
         <button onClick={scrollToKabInfo}>Kabinet Info </button>
       </div>
