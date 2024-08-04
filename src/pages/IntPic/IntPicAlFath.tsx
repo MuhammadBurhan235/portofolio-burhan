@@ -20,21 +20,6 @@ interface IntPic {
   keterangan: string;
 }
 
-interface IntPicData {
-  id: number;
-  tipe: string;
-  nama: string;
-  dekripsi: string;
-  periode: string;
-  link: string;
-  jenis: string;
-  lokasi: string;
-  width: string;
-  height: string;
-  list_gambar: string;
-  keterangan: string;
-}
-
 interface DepPusat {
   id: number;
   nama: string;
@@ -48,7 +33,6 @@ interface Kab {
 export function IntPicAlFath() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   const [intPics, setIntPics] = useState<IntPic[]>([]);
-  const [intPicDatas, setIntPicDatas] = useState<IntPicData[]>([]);
   const [selectedImage, setSelectedImage] = useState<{
     nama: string;
     keterangan: string;
@@ -69,19 +53,6 @@ export function IntPicAlFath() {
     };
 
     fetchIntPic();
-  }, []);
-
-  useEffect(() => {
-    const fetchIntPicData = async () => {
-      const { data, error } = await supabase.from("intpic_data").select("*");
-      if (error) {
-        console.error(error);
-      } else {
-        setIntPicDatas(data);
-      }
-    };
-
-    fetchIntPicData();
   }, []);
 
   useEffect(() => {
