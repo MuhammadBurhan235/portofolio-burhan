@@ -48,7 +48,8 @@ import ytLogo from "../src/assets/images/ytlogo.jpg";
 import fbLogo from "../src/assets/images/fblogo.jpg";
 import igLogo from "../src/assets/images/iglogo.jpg";
 import lineLogo from "../src/assets/images/linelogo.jpg";
-import triDiAlFath from "../src/assets/images/tridialfath.gif";
+import toa from "../src/assets/images/toa.png";
+import kursiMeja from "../src/assets/images/kursimeja.png";
 
 export const images: { [key: string]: string } = {
   "Orion Amerta": orion,
@@ -101,5 +102,6 @@ export const images: { [key: string]: string } = {
   "FB Logo": fbLogo,
   "IG Logo": igLogo,
   "LINE Logo": lineLogo,
-  "TriDi Al-Fath": triDiAlFath,
+  Toa: toa,
+  "Kursi Meja": kursiMeja,
 };

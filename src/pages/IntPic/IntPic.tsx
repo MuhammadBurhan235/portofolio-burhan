@@ -110,7 +110,7 @@ export function IntPic() {
 
   return (
     <div>
-      <div className={style.fullImage}>
+      <div className={style.fullImage} style={{ overflow: "hidden" }}>
         <div
           className="triangleDown"
           style={{
@@ -118,37 +118,39 @@ export function IntPic() {
             top: isFullscreen ? "7vw" : "2.5vw",
           }}
         ></div>
-        {intPics.map((intPic, index) => (
-          <div>
-            <div
-              key={index}
-              className={style.smallImageContainer}
-              style={{
-                bottom: isFullscreen
-                  ? `${intPic.bot_ful}vw`
-                  : `${intPic.bot_win}vw`,
-                left: isFullscreen
-                  ? `${intPic.left_ful}vw`
-                  : `${intPic.left_win}vw`,
-              }}
-              onClick={() => handleImageClick(intPic.nama, intPic.keterangan)}
-            >
-              <img
-                src={images[intPic.nama]}
-                alt={intPic.nama}
-                className={`${style.smallImage} ${style.blink}`}
+        {intPics
+          .filter((intPic) => intPic.tipe === "pb")
+          .map((intPic, index) => (
+            <div>
+              <div
+                key={index}
+                className={style.smallImageContainer}
                 style={{
-                  width: isFullscreen
-                    ? `${intPic.w_ful}vw`
-                    : `${intPic.w_win}vw`,
-                  height: isFullscreen
-                    ? `${intPic.h_ful}vw`
-                    : `${intPic.h_win}vw`,
+                  bottom: isFullscreen
+                    ? `${intPic.bot_ful}vw`
+                    : `${intPic.bot_win}vw`,
+                  left: isFullscreen
+                    ? `${intPic.left_ful}vw`
+                    : `${intPic.left_win}vw`,
                 }}
-              />
+                onClick={() => handleImageClick(intPic.nama, intPic.keterangan)}
+              >
+                <img
+                  src={images[intPic.nama]}
+                  alt={intPic.nama}
+                  className={`${style.smallImage} ${style.blink}`}
+                  style={{
+                    width: isFullscreen
+                      ? `${intPic.w_ful}vw`
+                      : `${intPic.w_win}vw`,
+                    height: isFullscreen
+                      ? `${intPic.h_ful}vw`
+                      : `${intPic.h_win}vw`,
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <Modal show={showModal} onClose={handleCloseModal}>
         {selectedImage ? (
@@ -278,6 +280,7 @@ export function IntPic() {
               <div className="cardContainer">
                 {selectedListPic
                   .sort((a, b) => a.id - b.id)
+                  .filter((pic) => pic.tipe === "pb")
                   .map((pic, index) => (
                     <div
                       key={index}

@@ -83,7 +83,7 @@ body {
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
-  padding-top: 45px;
+  padding: 0px;
 }
 
 .cardList1 {
