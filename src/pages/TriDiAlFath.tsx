@@ -70,7 +70,12 @@ export function TriDiAlFath() {
     <div>
       <div ref={newAreaRef}>
         <div className="area">
-          <div className="kontenArea">aaa</div>
+          <div className="kontenArea">
+            <div className="cardContainer">
+              <div className="cardList2"></div>
+              <div className="cardList2"></div>
+            </div>
+          </div>
         </div>
       </div>
       <div ref={depPusatRef}>
@@ -85,7 +90,7 @@ export function TriDiAlFath() {
       </div>
       <div className="blur"></div>
       <div className={styleS.navigasi2}>
-        <button onClick={scrollToNewArea}>New Area</button>
+        <button onClick={scrollToNewArea}>Ahlan Wa Sahlan</button>
         <button onClick={scrollToDepPusat}>Dept. Pusat Info</button>
         <button onClick={scrollToKabInfo}>Kabinet Info </button>
       </div>

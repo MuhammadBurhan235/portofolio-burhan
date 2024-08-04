@@ -56,7 +56,11 @@ export function TriDIPorto() {
     <div>
       <div ref={newAreaRef}>
         <div className="area">
-          <div className="kontenArea"></div>
+          <div className="kontenArea">
+            <div className="cardContainer">
+              <div className="cardList2"></div>
+            </div>
+          </div>
         </div>
       </div>
       <div ref={iDevelopRef}>

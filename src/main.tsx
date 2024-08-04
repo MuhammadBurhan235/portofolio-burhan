@@ -10,6 +10,7 @@ import { CheckPosi } from "./pages/IntPic/CheckPosi.tsx";
 import { TriDiAlFath } from "./pages/TriDiAlFath.tsx";
 import { IntPicAlFath } from "./pages/IntPic/IntPicAlFath.tsx";
 import { TriDIPorto } from "./pages/TriDi/TriDIPorto.tsx";
+import { LandingAlFath } from "./pages/Landing/LandingAlFath.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/portofolio-burhan/",
         element: <IntPic />,
+      },
+      {
+        path: "/portofolio-burhan/lpalfath",
+        element: <LandingAlFath />,
       },
       {
         path: "/portofolio-burhan/tridialfath",

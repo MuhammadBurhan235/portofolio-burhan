@@ -40,6 +40,15 @@ import flutter from "../src/assets/images/flutter.svg";
 import dart from "../src/assets/images/dart.svg";
 import cplus from "../src/assets/images/cplus.svg";
 import cmake from "../src/assets/images/cmake.svg";
+import rinaiLogo from "../src/assets/images/Rinai Hamaika.png";
+import alfathLogo from "../src/assets/images/alfath.png";
+import telkomLogo from "../src/assets/images/telkomlogo.png";
+import fsldkLogo from "../src/assets/images/fsldklogo.png";
+import ytLogo from "../src/assets/images/ytlogo.jpg";
+import fbLogo from "../src/assets/images/fblogo.jpg";
+import igLogo from "../src/assets/images/iglogo.jpg";
+import lineLogo from "../src/assets/images/linelogo.jpg";
+import triDiAlFath from "../src/assets/images/tridialfath.gif";
 
 export const images: { [key: string]: string } = {
   "Orion Amerta": orion,
@@ -84,4 +93,13 @@ export const images: { [key: string]: string } = {
   dart: dart,
   cplus: cplus,
   cmake: cmake,
+  "Rinai Logo": rinaiLogo,
+  "Al-Fath Logo": alfathLogo,
+  "Telkom Logo": telkomLogo,
+  "FSLDK Logo": fsldkLogo,
+  "YT Logo": ytLogo,
+  "FB Logo": fbLogo,
+  "IG Logo": igLogo,
+  "LINE Logo": lineLogo,
+  "TriDi Al-Fath": triDiAlFath,
 };
