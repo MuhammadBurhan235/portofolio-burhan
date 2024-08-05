@@ -51,19 +51,19 @@ export function useFullscreen() {
 
   const toggleFullscreen = () => {
     if (!isFullscreen) {
-      const confirmed = window.confirm(
-        "Apakah Anda yakin ingin masuk ke mode fullscreen?"
-      );
-      if (confirmed) {
-        requestFullscreen(document.documentElement as FullscreenElement);
-      }
+      // const confirmed = window.confirm(
+      //   "Apakah Anda yakin ingin masuk ke mode fullscreen?"
+      // );
+      // if (confirmed) {
+      requestFullscreen(document.documentElement as FullscreenElement);
+      // }
     } else {
-      const confirmed = window.confirm(
-        "Apakah Anda yakin ingin keluar dari mode fullscreen?"
-      );
-      if (confirmed) {
-        exitFullscreen();
-      }
+      // const confirmed = window.confirm(
+      //   "Apakah Anda yakin ingin keluar dari mode fullscreen?"
+      // );
+      // if (confirmed) {
+      exitFullscreen();
+      // }
     }
   };
 

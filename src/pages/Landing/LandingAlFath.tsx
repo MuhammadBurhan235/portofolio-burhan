@@ -1,4 +1,15 @@
 import { images } from "../../images";
+import triDiVideoMp4 from "../../assets/tridialfath.mp4";
+import triDiVideoWebM from "../../assets/tridialfath.webm";
+import intPicVideoMp4 from "../../assets/intpicalfath.mp4";
+import intPicVideoWebM from "../../assets/intpicalfath.webm";
+import {
+  faCheck,
+  faClose,
+  faGreaterThan,
+  faLessThan,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function LandingAlFath() {
   return (
@@ -113,25 +124,106 @@ export function LandingAlFath() {
                   padding: "10px",
                 }}
               >
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  style={{
-                    width: "210px",
-                    height: "auto",
-                    borderRadius: "15px",
-                  }}
-                >
-                  <source src="src\assets\tridialfath.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                <div className="cardContainer" style={{ padding: "0px" }}>
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                      width: "210px",
+                      height: "auto",
+                      borderRadius: "15px",
+                    }}
+                  >
+                    <source src={triDiVideoMp4} type="video/mp4" />
+                    <source src={triDiVideoWebM} type="video/webm" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div
+                    className="cardList2"
+                    style={{
+                      width: "210px",
+                      padding: "6.5px",
+                      backgroundColor: "#c04545",
+                      color: "white",
+                      fontSize: "12px",
+                    }}
+                  >
+                    <div
+                      className="cardContainer"
+                      style={{
+                        gap: "0px",
+                      }}
+                    >
+                      <h4 style={{ width: "200px" }}>
+                        <FontAwesomeIcon icon={faGreaterThan} /> Interaction
+                        Picture <FontAwesomeIcon icon={faLessThan} />
+                      </h4>
+                      <div className="cardContainer">
+                        <p>
+                          Dekstop <FontAwesomeIcon icon={faCheck} />
+                        </p>
+                        <p>
+                          Mobile <FontAwesomeIcon icon={faCheck} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div
                 className="cardList2"
-                style={{ width: "230px", height: "200px" }}
-              ></div>
+                style={{ width: "230px", height: "200px", padding: "10px" }}
+              >
+                <div className="cardContainer" style={{ padding: "0px" }}>
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                      width: "210px",
+                      height: "auto",
+                      borderRadius: "15px",
+                    }}
+                  >
+                    <source src={intPicVideoMp4} type="video/mp4" />
+                    <source src={intPicVideoWebM} type="video/webm" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div
+                    className="cardList2"
+                    style={{
+                      width: "210px",
+                      padding: "6.5px",
+                      backgroundColor: "#c04545",
+                      color: "white",
+                      fontSize: "12px",
+                    }}
+                  >
+                    <div
+                      className="cardContainer"
+                      style={{
+                        gap: "0px",
+                      }}
+                    >
+                      <h4 style={{ width: "200px" }}>
+                        <FontAwesomeIcon icon={faGreaterThan} /> Interaction
+                        Picture <FontAwesomeIcon icon={faLessThan} />
+                      </h4>
+                      <div className="cardContainer">
+                        <p>
+                          Dekstop <FontAwesomeIcon icon={faCheck} />
+                        </p>
+                        <p>
+                          Mobile <FontAwesomeIcon icon={faClose} />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div
                 className="cardList2"
                 style={{
