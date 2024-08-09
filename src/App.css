@@ -16,6 +16,7 @@ body {
       #25283b22 100px 101px
     );
 }
+
 .blur {
   filter: blur(5px);
 }
@@ -26,6 +27,21 @@ body {
   overflow: hidden;
   position: relative;
 } */
+
+.button1 {
+  background-color: #c04545;
+  border: none;
+}
+.button1:hover {
+  background-color: #c04545;
+  border: 1px solid white;
+}
+
+.modalImage {
+  width: 85%;
+  height: 85%;
+  object-fit: cover;
+}
 
 .detail:hover {
   background-color: rgb(249, 254, 0);
@@ -141,6 +157,13 @@ body {
 .smallGambar:hover {
   transform: scale(3); /* Adjust the scale as needed */
   z-index: 10; /* Ensure the enlarged image stays on top */
+}
+
+.slideContainer {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 0px;
 }
 
 .triangleDown {
