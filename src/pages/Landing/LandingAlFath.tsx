@@ -206,7 +206,7 @@ export function LandingAlFath() {
                     <source src={triDiVideoWebM} type="video/webm" />
                     Your browser does not support the video tag.
                   </video>
-                  <a href="http://localhost:5173/portofolio-burhan/tridialfath">
+                  <a href="https://muhammadburhan235.github.io/portofolio-burhan/tridialfath">
                     <button
                       className="button1"
                       style={{
@@ -263,39 +263,41 @@ export function LandingAlFath() {
                     <source src={intPicVideoWebM} type="video/webm" />
                     Your browser does not support the video tag.
                   </video>
-                  <button
-                    className="button1"
-                    style={{
-                      width: "210px",
-                      padding: "9px",
-                      backgroundColor: "#c04545",
-                      color: "white",
-                      fontSize: "12px",
-                      textTransform: "unset",
-                      borderRadius: "15px",
-                    }}
-                  >
-                    <div
-                      className="cardContainer"
+                  <a href="https://muhammadburhan235.github.io/portofolio-burhan/intpicalfath">
+                    <button
+                      className="button1"
                       style={{
-                        gap: "0px",
-                        fontWeight: "normal",
+                        width: "210px",
+                        padding: "9px",
+                        backgroundColor: "#c04545",
+                        color: "white",
+                        fontSize: "12px",
+                        textTransform: "unset",
+                        borderRadius: "15px",
                       }}
                     >
-                      <h4 style={{ width: "200px" }}>
-                        <FontAwesomeIcon icon={faGreaterThan} /> Interaction
-                        Picture <FontAwesomeIcon icon={faLessThan} />
-                      </h4>
-                      <div className="cardContainer">
-                        <p>
-                          Dekstop <FontAwesomeIcon icon={faCheck} />
-                        </p>
-                        <p>
-                          Mobile <FontAwesomeIcon icon={faClose} />
-                        </p>
+                      <div
+                        className="cardContainer"
+                        style={{
+                          gap: "0px",
+                          fontWeight: "normal",
+                        }}
+                      >
+                        <h4 style={{ width: "200px" }}>
+                          <FontAwesomeIcon icon={faGreaterThan} /> Interaction
+                          Picture <FontAwesomeIcon icon={faLessThan} />
+                        </h4>
+                        <div className="cardContainer">
+                          <p>
+                            Dekstop <FontAwesomeIcon icon={faCheck} />
+                          </p>
+                          <p>
+                            Mobile <FontAwesomeIcon icon={faClose} />
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </button>
+                    </button>
+                  </a>
                 </div>
               </div>
               <div
