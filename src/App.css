@@ -33,7 +33,7 @@ body {
   border: none;
 }
 .button1:hover {
-  background-color: #c04545;
+  background-color: #c04545e5 !important;
   border: 1px solid white;
 }
 

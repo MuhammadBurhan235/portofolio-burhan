@@ -152,6 +152,7 @@ button {
   font-weight: bold;
   text-transform: uppercase;
   border-radius: 5px;
+  background-color: white;
 }
 
 button:hover {

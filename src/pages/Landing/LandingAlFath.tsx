@@ -12,22 +12,23 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../App.css";
 import { useEffect, useState } from "react";
+import { supabase } from "../../supabaseClient";
 
 interface Slide {
-  color: string;
+  src: string; // Image source
   width: string;
+}
+
+interface DaysToEvent {
+  id: number;
+  nama: string;
+  list_gambar: string; // Assuming this is a comma-separated string
 }
 
 export function LandingAlFath() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const slides: Slide[] = [
-    { color: "gray", width: "215px" },
-    { color: "red", width: "215px" },
-    { color: "gray", width: "215px" },
-    { color: "black", width: "215px" },
-    { color: "yellow", width: "215px" },
-    { color: "black", width: "215px" },
-  ];
+  const [daysToEvents, setDaysToEvents] = useState<DaysToEvent[]>([]);
+  const [slides, setSlides] = useState<Slide[]>([]); // Initialize slides state
 
   const handleNodeClick = (index: number) => {
     const newIndex = index * 3; // Multiply the index by 3 to shift by three slides
@@ -35,20 +36,47 @@ export function LandingAlFath() {
     setCurrentIndex(Math.min(newIndex, slides.length - 3));
   };
 
-  // Calculate the visible slides based on the current index
-  const visibleSlides = slides.slice(currentIndex, currentIndex + 3);
+  useEffect(() => {
+    const fetchDaysToEvents = async () => {
+      const { data, error } = await supabase.from("days_to_event").select("*");
+      if (error) {
+        console.error(error);
+      } else {
+        setDaysToEvents(data);
 
-  // Automatically move to the next slide every 3 seconds
+        // Create slides from list_gambar after data is fetched
+        const allSlides: Slide[] = [];
+        data.forEach((event: DaysToEvent) => {
+          const imagesArray = event.list_gambar.split(";"); // Split the string into an array
+          imagesArray.forEach((src) => {
+            allSlides.push({ src: src.trim(), width: "215px" }); // Trim any whitespace
+          });
+        });
+        setSlides(allSlides); // Update slides state
+      }
+    };
+
+    fetchDaysToEvents();
+  }, []);
+
+  // Automatically move to the next slide every 5 seconds
+  // Automatically move to the next slide every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => {
         const nextIndex = prevIndex + 3;
-        return nextIndex < slides.length ? nextIndex : 0; // Reset to 0 if exceeding
+        if (nextIndex >= slides.length) {
+          return 0; // Reset to the first slide
+        }
+        return nextIndex; // Move to the next slide
       });
     }, 5000);
 
     return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+  }, [slides]);
+
+  // Calculate the visible slides based on the current index
+  const visibleSlides = slides.slice(currentIndex, currentIndex + 3);
 
   return (
     <div>
@@ -436,14 +464,15 @@ export function LandingAlFath() {
                     }}
                   >
                     {visibleSlides.map((slide, index) => (
-                      <div
+                      <img
                         key={index}
-                        className="slideItem"
+                        src={images[slide.src]} // Use the image source from the slide
+                        alt={`Slide ${index}`}
                         style={{
-                          backgroundColor: slide.color,
                           width: slide.width,
-                        }}
-                      ></div>
+                          height: "128.6px",
+                        }} // Adjust size and spacing
+                      />
                     ))}
 
                     {/* Navigation nodes */}
@@ -457,10 +486,7 @@ export function LandingAlFath() {
                       }}
                     >
                       <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
+                        style={{ display: "flex", justifyContent: "center" }}
                       >
                         {slides
                           .slice(0, Math.ceil(slides.length / 3))
@@ -474,7 +500,7 @@ export function LandingAlFath() {
                                 backgroundColor:
                                   currentIndex === index * 3
                                     ? "#c04545"
-                                    : "lightgray", // Change color here
+                                    : "lightgray",
                                 borderRadius: "50%",
                                 margin: "0 5px",
                                 cursor: "pointer",

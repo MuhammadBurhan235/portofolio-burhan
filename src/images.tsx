@@ -50,6 +50,12 @@ import igLogo from "../src/assets/images/iglogo.jpg";
 import lineLogo from "../src/assets/images/linelogo.jpg";
 import toa from "../src/assets/images/toa.png";
 import kursiMeja from "../src/assets/images/kursimeja.png";
+import pmb241 from "../src/assets/images/pmb241.png";
+import pmb242 from "../src/assets/images/pmb242.png";
+import pmb243 from "../src/assets/images/pmb243.png";
+import pmb244 from "../src/assets/images/pmb244.png";
+import pmb245 from "../src/assets/images/pmb245.png";
+import pmb246 from "../src/assets/images/pmb246.png";
 
 export const images: { [key: string]: string } = {
   "Orion Amerta": orion,
@@ -104,4 +110,10 @@ export const images: { [key: string]: string } = {
   "LINE Logo": lineLogo,
   Toa: toa,
   "Kursi Meja": kursiMeja,
+  pmb241: pmb241,
+  pmb242: pmb242,
+  pmb243: pmb243,
+  pmb244: pmb244,
+  pmb245: pmb245,
+  pmb246: pmb246,
 };
