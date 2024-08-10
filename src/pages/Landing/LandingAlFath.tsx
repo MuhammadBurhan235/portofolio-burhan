@@ -425,30 +425,39 @@ export function LandingAlFath() {
                     gap: "0px",
                   }}
                 >
-                  <div
-                    className="cardList2"
-                    style={{
-                      width: "380px",
-                      borderTopRightRadius: "0px",
-                      borderBottomRightRadius: "0px",
-                      padding: "10px",
-                    }}
-                  >
-                    <h4 style={{ textAlign: "left", color: "#c04545" }}>
-                      Days to Big Event
-                    </h4>
-                    <h3 style={{ fontSize: "11px", textAlign: "left" }}>
-                      Penerimaan Mahasiswa Baru Islamic Festival - 28 Agustus
-                      2024
-                    </h3>
-                    <p style={{ fontSize: "11px", textAlign: "left" }}>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Animi ullam deserunt perferendis ipsam? Iure accusamus
-                      voluptatum perspiciatis? Debitis repudiandae, aperiam,
-                      nobis sunt laboriosam consectetur fugit rerum earum fuga,
-                      quia alias.
-                    </p>
-                  </div>
+                  {daysToEvents.map((daysToEvent, index) => (
+                    <>
+                      {daysToEvent.nama ===
+                      "Penerimaan Mahasiswa Baru Islamic Festival 2024" ? (
+                        <>
+                          <div
+                            key={index}
+                            className="cardList2"
+                            style={{
+                              width: "380px",
+                              borderTopRightRadius: "0px",
+                              borderBottomRightRadius: "0px",
+                              padding: "10px",
+                            }}
+                          >
+                            <h4 style={{ textAlign: "left", color: "#c04545" }}>
+                              Days to Big Event
+                            </h4>
+                            <h3 style={{ fontSize: "11px", textAlign: "left" }}>
+                              {daysToEvent.nama}
+                            </h3>
+                            <p style={{ fontSize: "11px", textAlign: "left" }}>
+                              Lorem ipsum dolor sit amet consectetur adipisicing
+                              elit. Animi ullam deserunt perferendis ipsam? Iure
+                              accusamus voluptatum perspiciatis? Debitis
+                              repudiandae, aperiam, nobis sunt laboriosam
+                              consectetur fugit rerum earum fuga, quia alias.
+                            </p>
+                          </div>
+                        </>
+                      ) : null}
+                    </>
+                  ))}
                   <div
                     className="slideContainer"
                     style={{
