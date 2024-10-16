@@ -30,7 +30,7 @@
   transform: rotateY(
       calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)
     )
-    translateZ(800px);
+    translateZ(1000px);
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -49,6 +49,21 @@ img:hover {
     translateZ(100px);
   align-items: center;
   justify-content: center;
+}
+
+.slider[data-quantity="4"] .item {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(
+      calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)
+    )
+    translateZ(400px);
+  align-items: center;
+  justify-content: center;
+}
+
+.slider[data-quantity="4"] {
+  animation: autoRun 90s linear infinite;
 }
 
 img {

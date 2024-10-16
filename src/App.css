@@ -59,9 +59,8 @@ body {
   position: absolute;
   background-color: transparent;
   width: 1100px;
-  height: 360px;
+  height: 400px;
   top: 10%;
-  left: calc(50% - 550px);
   transform-style: preserve-3d;
   transform: perspective(1700px);
   z-index: 2;
@@ -209,4 +208,28 @@ body {
 .backButton:hover {
   background-color: #c04545;
   padding-left: 80px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile {
+    height: 500px;
+    width: 600px;
+  }
+  .areaMobile {
+    height: 600px;
+    width: 1100px;
+    padding-bottom: 100px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .mobile {
+    height: 900px;
+    width: 400px;
+  }
+  .areaMobile {
+    height: 1080px;
+    width: 1100px;
+    padding-bottom: 100px;
+  }
 }

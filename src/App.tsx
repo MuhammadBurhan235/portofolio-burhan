@@ -38,6 +38,10 @@ const App = () => {
         title += "Check Position Page";
         favicon = "";
         break;
+      case "/portofolio-burhan/adminmasjid":
+        title += "Check Position Page";
+        favicon = "";
+        break;
       default:
         title += "Default Title";
         favicon = "";

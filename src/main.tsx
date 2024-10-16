@@ -11,6 +11,9 @@ import { TriDiAlFath } from "./pages/TriDiAlFath.tsx";
 import { IntPicAlFath } from "./pages/IntPic/IntPicAlFath.tsx";
 import { TriDIPorto } from "./pages/TriDi/TriDIPorto.tsx";
 import { LandingAlFath } from "./pages/Landing/LandingAlFath.tsx";
+import DashboardAdmin from "./pages/AdminMasjid/DashboardAdmin.tsx";
+import { ImageGallery } from "./pages/AdminMasjid/ImageGallery.tsx";
+import { MasjidMap } from "./pages/AdminMasjid/MasjidMap.tsx";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +47,18 @@ const router = createBrowserRouter([
       {
         path: "/portofolio-burhan/checkposi",
         element: <CheckPosi />,
+      },
+      {
+        path: "/portofolio-burhan/dsadmin",
+        element: <DashboardAdmin />,
+      },
+      {
+        path: "/portofolio-burhan/imggallery",
+        element: <ImageGallery />,
+      },
+      {
+        path: "/portofolio-burhan/masjidmap",
+        element: <MasjidMap />,
       },
     ],
   },

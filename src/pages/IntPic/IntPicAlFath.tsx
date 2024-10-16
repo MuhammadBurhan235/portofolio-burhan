@@ -97,7 +97,7 @@ export function IntPicAlFath() {
     setShowModal(false);
   };
   return (
-    <div>
+    <div className="container">
       <div className={style.fullImageAlFath} style={{ overflow: "hidden" }}>
         {intPics
           .filter((intPic) => intPic.tipe === "ldkaf")

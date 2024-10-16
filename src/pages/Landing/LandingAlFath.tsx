@@ -16,7 +16,6 @@ import { supabase } from "../../supabaseClient";
 
 interface Slide {
   src: string; // Image source
-  width: string;
 }
 
 interface DaysToEvent {
@@ -49,7 +48,7 @@ export function LandingAlFath() {
         data.forEach((event: DaysToEvent) => {
           const imagesArray = event.list_gambar.split(";"); // Split the string into an array
           imagesArray.forEach((src) => {
-            allSlides.push({ src: src.trim(), width: "215px" }); // Trim any whitespace
+            allSlides.push({ src: src.trim() }); // Trim any whitespace
           });
         });
         setSlides(allSlides); // Update slides state
@@ -79,17 +78,24 @@ export function LandingAlFath() {
   const visibleSlides = slides.slice(currentIndex, currentIndex + 3);
 
   return (
-    <div>
+    <div className="container">
       <div className="area">
         <div
           className="kontenArea"
-          style={{ padding: "0px", height: "auto", border: "none" }}
+          style={{
+            padding: "0px",
+            height: "auto",
+            border: "none",
+            display: "flex", // Tambahkan flexbox
+            justifyContent: "center", // Pusatkan secara horizontal
+            alignItems: "center",
+          }}
         >
           <div
             className="cardContainer"
             style={{
-              marginLeft: "-745px",
               padding: "0px",
+              color: "#333",
             }}
           >
             <h3
@@ -105,14 +111,135 @@ export function LandingAlFath() {
           </div>
 
           <div
-            className="kontenArea"
+            className="kontenArea areaMobile"
             style={{
               top: "100%",
-              height: "auto",
               backgroundColor: "rgba(255, 255, 255, 0.179)",
+              display: "flex", // Tambahkan flexbox
+              justifyContent: "center", // Pusatkan secara horizontal
+              alignItems: "center",
             }}
           >
-            <div className="cardContainer" style={{ padding: "30px" }}>
+            <div
+              className="cardContainer mobile"
+              style={{
+                padding: "30px",
+              }}
+            >
+              <div
+                className="cardList2"
+                style={{
+                  width: "1030px",
+                  height: "130px",
+                  padding: "0px",
+                  backgroundColor: "transparent",
+                }}
+              >
+                <div
+                  className="cardContainer"
+                  style={{
+                    width: "1030px",
+                    height: "130px",
+                    padding: "0px",
+                    gap: "0px",
+                  }}
+                >
+                  {daysToEvents.map((daysToEvent, index) => (
+                    <>
+                      {daysToEvent.nama ===
+                      "Penerimaan Mahasiswa Baru Islamic Festival 2024" ? (
+                        <>
+                          <div
+                            key={index}
+                            className="cardList2"
+                            style={{
+                              width: "380px",
+                              borderTopRightRadius: "0px",
+                              borderBottomRightRadius: "0px",
+                              padding: "10px",
+                            }}
+                          >
+                            <h4 style={{ textAlign: "left", color: "#c04545" }}>
+                              Days to Big Event
+                            </h4>
+                            <h3 style={{ fontSize: "11px", textAlign: "left" }}>
+                              {daysToEvent.nama}
+                            </h3>
+                            <p style={{ fontSize: "11px", textAlign: "left" }}>
+                              Lorem ipsum dolor sit amet consectetur adipisicing
+                              elit. Animi ullam deserunt perferendis ipsam? Iure
+                              accusamus voluptatum perspiciatis? Debitis
+                              repudiandae, aperiam, nobis sunt laboriosam
+                              consectetur fugit rerum earum fuga, quia alias.
+                            </p>
+                          </div>
+                        </>
+                      ) : null}
+                    </>
+                  ))}
+                  <div
+                    className="slideContainer"
+                    style={{
+                      width: "648px",
+                      height: "128.5px",
+                      borderTopRightRadius: "15px",
+                      borderBottomRightRadius: "15px",
+                      padding: "0px",
+                      gap: "0px",
+                      overflow: "hidden",
+                      display: "flex",
+                      position: "relative",
+                    }}
+                  >
+                    {visibleSlides.map((slide, index) => (
+                      <img
+                        key={index}
+                        src={images[slide.src]} // Use the image source from the slide
+                        alt={`Slide ${index}`}
+                        style={{
+                          width: "215px",
+                          height: "128.6px",
+                        }} // Adjust size and spacing
+                      />
+                    ))}
+
+                    {/* Navigation nodes */}
+                    <div
+                      style={{
+                        padding: "5px",
+                        borderRadius: "5px",
+                        position: "absolute",
+                        marginTop: "3px",
+                        backgroundColor: "rgba(255, 255, 255, 0.150)",
+                      }}
+                    >
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        {slides
+                          .slice(0, Math.ceil(slides.length / 3))
+                          .map((_, index) => (
+                            <div
+                              key={index}
+                              onClick={() => handleNodeClick(index)}
+                              style={{
+                                width: "10px",
+                                height: "10px",
+                                backgroundColor:
+                                  currentIndex === index * 3
+                                    ? "#c04545"
+                                    : "lightgray",
+                                borderRadius: "50%",
+                                margin: "0 5px",
+                                cursor: "pointer",
+                              }}
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div
                 className="cardList2"
                 style={{
@@ -227,8 +354,15 @@ export function LandingAlFath() {
                         }}
                       >
                         <h4 style={{ width: "200px" }}>
-                          <FontAwesomeIcon icon={faGreaterThan} /> Interaction
-                          Picture <FontAwesomeIcon icon={faLessThan} />
+                          <FontAwesomeIcon
+                            icon={faGreaterThan}
+                            style={{ animation: "blink 1s infinite" }}
+                          />{" "}
+                          Interaction Picture{" "}
+                          <FontAwesomeIcon
+                            icon={faLessThan}
+                            style={{ animation: "blink 1s infinite" }}
+                          />
                         </h4>
                         <div className="cardContainer">
                           <p>
@@ -284,8 +418,15 @@ export function LandingAlFath() {
                         }}
                       >
                         <h4 style={{ width: "200px" }}>
-                          <FontAwesomeIcon icon={faGreaterThan} /> Interaction
-                          Picture <FontAwesomeIcon icon={faLessThan} />
+                          <FontAwesomeIcon
+                            icon={faGreaterThan}
+                            style={{ animation: "blink 1s infinite" }}
+                          />{" "}
+                          Interaction Picture{" "}
+                          <FontAwesomeIcon
+                            icon={faLessThan}
+                            style={{ animation: "blink 1s infinite" }}
+                          />
                         </h4>
                         <div className="cardContainer">
                           <p>
@@ -409,120 +550,6 @@ export function LandingAlFath() {
                   </div>
                 </div>
               </div>
-              <div
-                className="cardList2"
-                style={{
-                  width: "1030px",
-                  height: "130px",
-                  padding: "0px",
-                  backgroundColor: "transparent",
-                }}
-              >
-                <div
-                  className="cardContainer"
-                  style={{
-                    width: "1030px",
-                    height: "130px",
-                    padding: "0px",
-                    gap: "0px",
-                  }}
-                >
-                  {daysToEvents.map((daysToEvent, index) => (
-                    <>
-                      {daysToEvent.nama ===
-                      "Penerimaan Mahasiswa Baru Islamic Festival 2024" ? (
-                        <>
-                          <div
-                            key={index}
-                            className="cardList2"
-                            style={{
-                              width: "380px",
-                              borderTopRightRadius: "0px",
-                              borderBottomRightRadius: "0px",
-                              padding: "10px",
-                            }}
-                          >
-                            <h4 style={{ textAlign: "left", color: "#c04545" }}>
-                              Days to Big Event
-                            </h4>
-                            <h3 style={{ fontSize: "11px", textAlign: "left" }}>
-                              {daysToEvent.nama}
-                            </h3>
-                            <p style={{ fontSize: "11px", textAlign: "left" }}>
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Animi ullam deserunt perferendis ipsam? Iure
-                              accusamus voluptatum perspiciatis? Debitis
-                              repudiandae, aperiam, nobis sunt laboriosam
-                              consectetur fugit rerum earum fuga, quia alias.
-                            </p>
-                          </div>
-                        </>
-                      ) : null}
-                    </>
-                  ))}
-                  <div
-                    className="slideContainer"
-                    style={{
-                      width: "648px",
-                      height: "128.5px",
-                      borderTopRightRadius: "15px",
-                      borderBottomRightRadius: "15px",
-                      padding: "0px",
-                      gap: "0px",
-                      overflow: "hidden",
-                      display: "flex",
-                      position: "relative",
-                    }}
-                  >
-                    {visibleSlides.map((slide, index) => (
-                      <img
-                        key={index}
-                        src={images[slide.src]} // Use the image source from the slide
-                        alt={`Slide ${index}`}
-                        style={{
-                          width: slide.width,
-                          height: "128.6px",
-                        }} // Adjust size and spacing
-                      />
-                    ))}
-
-                    {/* Navigation nodes */}
-                    <div
-                      style={{
-                        padding: "5px",
-                        borderRadius: "5px",
-                        position: "absolute",
-                        marginTop: "3px",
-                        backgroundColor: "rgba(255, 255, 255, 0.150)",
-                      }}
-                    >
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        {slides
-                          .slice(0, Math.ceil(slides.length / 3))
-                          .map((_, index) => (
-                            <div
-                              key={index}
-                              onClick={() => handleNodeClick(index)}
-                              style={{
-                                width: "10px",
-                                height: "10px",
-                                backgroundColor:
-                                  currentIndex === index * 3
-                                    ? "#c04545"
-                                    : "lightgray",
-                                borderRadius: "50%",
-                                margin: "0 5px",
-                                cursor: "pointer",
-                              }}
-                            />
-                          ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -530,3 +557,13 @@ export function LandingAlFath() {
     </div>
   );
 }
+
+const blinkStyle = document.createElement("style");
+blinkStyle.innerHTML = `
+  @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+`;
+document.head.appendChild(blinkStyle);

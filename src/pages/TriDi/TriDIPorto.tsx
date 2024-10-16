@@ -53,7 +53,7 @@ export function TriDIPorto() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div ref={newAreaRef}>
         <div className="area">
           <div className="kontenArea">

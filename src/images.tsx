@@ -27,6 +27,10 @@ import tvw1 from "../src/assets/images/tvw1.png";
 import tvw2 from "../src/assets/images/tvw2.png";
 import tvw3 from "../src/assets/images/tvw3.png";
 import tvw4 from "../src/assets/images/tvw4.jpg";
+import kaf1 from "../src/assets/images/kaf1.png";
+import kaf2 from "../src/assets/images/kaf2.png";
+import kaf3 from "../src/assets/images/kaf3.png";
+import kaf4 from "../src/assets/images/kaf4.png";
 import moodle from "../src/assets/images/moodle.png";
 import php from "../src/assets/images/php.svg";
 import js from "../src/assets/images/js.svg";
@@ -87,6 +91,10 @@ export const images: { [key: string]: string } = {
   tvw2: tvw2,
   tvw3: tvw3,
   tvw4: tvw4,
+  kaf1: kaf1,
+  kaf2: kaf2,
+  kaf3: kaf3,
+  kaf4: kaf4,
   moodle: moodle,
   php: php,
   js: js,

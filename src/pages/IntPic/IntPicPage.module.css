@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,7 +15,7 @@ body {
       transparent 0 100px,
       #25283b22 100px 101px
     );
-}
+} */
 
 /* body::before {
   position: absolute;
