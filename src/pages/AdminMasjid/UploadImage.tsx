@@ -36,6 +36,7 @@ export const UploadImage: React.FC = () => {
         <button type="submit">Upload Image</button>
       </form>
       <button onClick={handleToGallery}>Gallery</button>
+      {imageUrl && <img src={imageUrl} alt="Uploaded" />}
     </>
   );
 };
