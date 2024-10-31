@@ -31,7 +31,7 @@ const FaqList: React.FC<FaqListProps> = ({ faqs, selectedCategory }) => {
       <div
         className="overflow-auto"
         style={{
-          maxHeight: "400px",
+          maxHeight: "380px",
           border: "1px solid #ccc",
           borderRadius: "10px",
           padding: "10px",

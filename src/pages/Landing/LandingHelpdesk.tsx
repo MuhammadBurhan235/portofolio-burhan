@@ -67,6 +67,7 @@ const LandingHelpdesk: React.FC = () => {
         setMainbarContent(
           <FaqList faqs={data} selectedCategory="All Category" />
         ); // Set mainbarContent dengan FAQ default
+        setSelectedIcon("faq"); // Set FAQ icon as active by default
       }
     };
 
