@@ -78,7 +78,7 @@ export function LandingAlFath() {
   const visibleSlides = slides.slice(currentIndex, currentIndex + 3);
 
   return (
-    <div className="container">
+    <div>
       <div className="area">
         <div
           className="kontenArea"

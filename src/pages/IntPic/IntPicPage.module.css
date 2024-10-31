@@ -15,9 +15,9 @@ body {
       transparent 0 100px,
       #25283b22 100px 101px
     );
-} */
+}
 
-/* body::before {
+body::before {
   position: absolute;
   width: min(1400px, 90vw);
   top: 10%;

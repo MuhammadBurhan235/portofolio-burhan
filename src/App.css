@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -19,7 +19,7 @@ body {
 
 .blur {
   filter: blur(5px);
-}
+} */
 /* .area {
   width: 100%;
   height: 100vh;
@@ -27,6 +27,24 @@ body {
   overflow: hidden;
   position: relative;
 } */
+
+/* @media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+  .mainbar {
+    width: 100%;
+  }
+} */
+
+.iconbar:hover {
+  background: linear-gradient(to right, #6c757d 35%, #212529 75%);
+}
+
+.iconbar.active {
+  background: linear-gradient(to right, #6c757d 5%, #212529 95%);
+}
 
 .button1 {
   background-color: #c04545;
