@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { FaHeadset, FaQuestionCircle, FaTimes } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { LoginForm } from "./LoginForm";
+import { SigninForm } from "./SigninForm";
 import { SignupForm } from "./SignupForm";
 import { supabase } from "../../supabaseClient";
 import FaqList from "./FaqList"; // Import komponen FAQ
@@ -115,7 +115,7 @@ const LandingHelpdesk: React.FC = () => {
     setSelectedButton(button);
 
     if (button === "signin") {
-      setSidebarRContent(<LoginForm switchToSignup={showSignupForm} />);
+      setSidebarRContent(<SigninForm switchToSignup={showSignupForm} />);
     } else {
       setSidebarRContent(null);
     }
@@ -128,7 +128,7 @@ const LandingHelpdesk: React.FC = () => {
 
   // Show Login Form
   const showLoginForm = () => {
-    setSidebarRContent(<LoginForm switchToSignup={showSignupForm} />);
+    setSidebarRContent(<SigninForm switchToSignup={showSignupForm} />);
   };
 
   // Close handler for both sidebars
