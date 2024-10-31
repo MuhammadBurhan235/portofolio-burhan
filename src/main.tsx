@@ -11,7 +11,7 @@ import { TriDiAlFath } from "./pages/TriDiAlFath.tsx";
 import { IntPicAlFath } from "./pages/IntPic/IntPicAlFath.tsx";
 import { TriDIPorto } from "./pages/TriDi/TriDIPorto.tsx";
 import { LandingAlFath } from "./pages/Landing/LandingAlFath.tsx";
-import { LandingAlFathCopy } from "./pages/Landing/LandingAlFathCopy.tsx";
+// import { LandingAlFathCopy } from "./pages/Landing/LandingAlFathCopy.tsx";
 import DashboardAdmin from "./pages/AdminMasjid/DashboardAdmin.tsx";
 import { ImageGallery } from "./pages/AdminMasjid/ImageGallery.tsx";
 import { MasjidMap } from "./pages/AdminMasjid/MasjidMap.tsx";
@@ -27,23 +27,23 @@ const router = createBrowserRouter([
         element: <TriDIPorto />,
       },
       {
-        path: "/portofolio-burhan/intpicburhan",
+        path: "/portofolio-burhan/",
         element: <IntPic />,
       },
       {
-        path: "/portofolio-burhan/lpalfath1",
+        path: "/portofolio-burhan/lpalfath",
         element: <LandingAlFath />,
       },
+      // {
+      //   path: "/portofolio-burhan/lpalfathcopy",
+      //   element: <LandingAlFathCopy />,
+      // },
       {
-        path: "/portofolio-burhan/lpalfathcopy",
-        element: <LandingAlFathCopy />,
-      },
-      {
-        path: "/portofolio-burhan/tridialfath1",
+        path: "/portofolio-burhan/tridialfath",
         element: <TriDiAlFath />,
       },
       {
-        path: "/portofolio-burhan/intpicalfath1",
+        path: "/portofolio-burhan/intpicalfath",
         element: <IntPicAlFath />,
       },
       {

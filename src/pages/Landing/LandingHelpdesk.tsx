@@ -1,12 +1,4 @@
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Navbar,
-  Nav,
-  Accordion,
-} from "react-bootstrap";
+import { Container, Row, Col, Button, Navbar, Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { FaHeadset, FaQuestionCircle, FaTimes } from "react-icons/fa";
@@ -46,9 +38,6 @@ const LandingHelpdesk: React.FC = () => {
   const [faqs, setFaqs] = useState<faq[]>([]);
   const [layanans, setLayanans] = useState<layanan[]>([]);
   const [faqCategory, setFaqCategory] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(
-    "All Category"
-  ); // Default ke All Category
 
   useEffect(() => {
     const fetchFaqs = async () => {
@@ -103,7 +92,6 @@ const LandingHelpdesk: React.FC = () => {
 
     if (icon === "faq") {
       setSidebarLData(faqCategory);
-      setSelectedCategory("All Category"); // Reset kategori ketika FAQ dipilih
       setMainbarContent(
         <FaqList faqs={faqs} selectedCategory="All Category" />
       );
@@ -118,7 +106,6 @@ const LandingHelpdesk: React.FC = () => {
 
   // Handler untuk memilih kategori dari sidebar
   const handleCategoryClick = (category: string) => {
-    setSelectedCategory(category); // Update kategori yang dipilih
     setMainbarContent(<FaqList faqs={faqs} selectedCategory={category} />); // Perbarui mainbar content
   };
 
@@ -167,8 +154,7 @@ const LandingHelpdesk: React.FC = () => {
         <Navbar.Brand href="#home">Brand</Navbar.Brand>
         <div className="ms-auto">
           <Button
-            variant="outline-light"
-            href="#login"
+            variant={selectedButton === "signin" ? "primary" : "outline-light"}
             onClick={() => handleButtonClick("signin")}
           >
             Login
@@ -190,7 +176,9 @@ const LandingHelpdesk: React.FC = () => {
           <Nav className="flex-column">
             <Nav.Link
               href="#faq"
-              className="text-light iconbar"
+              className={`text-light iconbar ${
+                selectedIcon === "faq" ? "active" : ""
+              }`}
               title="FAQ"
               onClick={() => handleIconClick("faq")}
             >
@@ -198,7 +186,9 @@ const LandingHelpdesk: React.FC = () => {
             </Nav.Link>
             <Nav.Link
               href="#layanan"
-              className="text-light iconbar"
+              className={`text-light iconbar ${
+                selectedIcon === "layanan" ? "active" : ""
+              }`}
               title="Layanan"
               onClick={() => handleIconClick("layanan")}
             >

@@ -1,4 +1,5 @@
 import { Accordion } from "react-bootstrap";
+import { FaThumbsUp } from "react-icons/fa";
 
 interface faq {
   id: number;
@@ -58,9 +59,13 @@ const FaqList: React.FC<FaqListProps> = ({ faqs, selectedCategory }) => {
                     backgroundColor: "#E2F0D9",
                     padding: "5px",
                     borderRadius: "10px",
+                    display: "flex",
+                    alignItems: "center",
                   }}
                 >
-                  {faq.likes} Likes
+                  <FaThumbsUp style={{ marginRight: "5px" }} />{" "}
+                  {/* Ikon jempol */}
+                  {faq.likes}
                 </span>
               </Accordion.Header>
               <Accordion.Body
