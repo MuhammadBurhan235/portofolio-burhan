@@ -27,11 +27,11 @@ const router = createBrowserRouter([
         element: <TriDIPorto />,
       },
       {
-        path: "/portofolio-burhan/",
+        path: "/portofolio-burhan/intpicburhan",
         element: <IntPic />,
       },
       {
-        path: "/portofolio-burhan/lpalfath",
+        path: "/portofolio-burhan/lpalfath1",
         element: <LandingAlFath />,
       },
       // {
@@ -39,23 +39,23 @@ const router = createBrowserRouter([
       //   element: <LandingAlFathCopy />,
       // },
       {
-        path: "/portofolio-burhan/tridialfath",
+        path: "/portofolio-burhan/tridialfath1",
         element: <TriDiAlFath />,
       },
       {
-        path: "/portofolio-burhan/intpicalfath",
+        path: "/portofolio-burhan/intpicalfath1",
         element: <IntPicAlFath />,
       },
       {
-        path: "/portofolio-burhan/list",
+        path: "/portofolio-burhan/list1",
         element: <List />,
       },
       {
-        path: "/portofolio-burhan/checkposi",
+        path: "/portofolio-burhan/checkposi1",
         element: <CheckPosi />,
       },
       {
-        path: "/portofolio-burhan/dsadmin",
+        path: "/portofolio-burhan/dsadmin1",
         element: <DashboardAdmin />,
       },
       {
