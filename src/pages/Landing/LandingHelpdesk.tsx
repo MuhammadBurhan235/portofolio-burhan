@@ -1,13 +1,19 @@
 import { Container, Row, Col, Button, Navbar, Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { FaHeadset, FaQuestionCircle, FaTimes } from "react-icons/fa";
+import {
+  FaHeadset,
+  FaQuestionCircle,
+  FaTimes,
+  FaPencilAlt,
+} from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { SigninForm } from "./SigninForm";
 import { SignupForm } from "./SignupForm";
 import { supabase } from "../../supabaseClient";
 import FaqList from "./FaqList"; // Import komponen FAQ
 import LayananList from "./LayananList";
+import { Session } from "@supabase/supabase-js";
 
 interface faq {
   id: number;
@@ -38,6 +44,59 @@ const LandingHelpdesk: React.FC = () => {
   const [faqs, setFaqs] = useState<faq[]>([]);
   const [layanans, setLayanans] = useState<layanan[]>([]);
   const [faqCategory, setFaqCategory] = useState<string[]>([]);
+  const [user, setUser] = useState<Session | null>(null);
+
+  // const [isSigningUp, setIsSigningUp] = useState(false);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: sessionData } = await supabase.auth.getSession();
+      setUser(sessionData?.session);
+    };
+
+    checkSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
+          setUser(session);
+        }
+      }
+    );
+
+    return () => {
+      authListener?.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleButtonClick = (button: string) => {
+    setSelectedButton(button);
+
+    if (button === "signin") {
+      setSidebarRContent(<SigninForm switchToSignup={showSignupForm} />);
+    } else if (button === "signup") {
+      setSidebarRContent(<SignupForm switchToLogin={showLoginForm} />);
+    } else {
+      setSidebarRContent(null);
+    }
+  };
+
+  // Show Signup Form
+  const showSignupForm = () => {
+    setSidebarRContent(<SignupForm switchToLogin={showLoginForm} />);
+  };
+
+  // Show Login Form
+  const showLoginForm = () => {
+    setSidebarRContent(<SigninForm switchToSignup={showSignupForm} />);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setSidebarRContent(null);
+    setSelectedButton(null);
+    window.location.href = "http://localhost:5173/portofolio-burhan/lphelpdesk";
+  };
 
   useEffect(() => {
     const fetchFaqs = async () => {
@@ -111,27 +170,28 @@ const LandingHelpdesk: React.FC = () => {
   };
 
   // Button click handler for right sidebar (login)
-  const handleButtonClick = (button: string) => {
-    setSelectedButton(button);
+  // const handleButtonClick = (button: string) => {
+  //   setSelectedButton(button);
 
-    if (button === "signin") {
-      setSidebarRContent(<SigninForm switchToSignup={showSignupForm} />);
-    } else {
-      setSidebarRContent(null);
-    }
-  };
+  //   if (button === "signin") {
+  //     setSidebarRContent(<SigninForm switchToSignup={showSignupForm} />);
+  //   } else {
+  //     setSidebarRContent(null);
+  //   }
+  // };
 
-  // Show Signup Form
-  const showSignupForm = () => {
-    setSidebarRContent(<SignupForm switchToLogin={showLoginForm} />);
-  };
+  // // Show Signup Form
+  // const showSignupForm = () => {
+  //   setSidebarRContent(<SignupForm switchToLogin={showLoginForm} />);
+  // };
 
-  // Show Login Form
-  const showLoginForm = () => {
-    setSidebarRContent(<SigninForm switchToSignup={showSignupForm} />);
-  };
+  // // Show Login Form
+  // const showLoginForm = () => {
+  //   setSidebarRContent(<SigninForm switchToSignup={showSignupForm} />);
+  // };
 
   // Close handler for both sidebars
+
   const handleCloseSidebar = (sidebar: string) => {
     if (sidebar === "left") {
       setSidebarLData([]);
@@ -146,7 +206,6 @@ const LandingHelpdesk: React.FC = () => {
       className="vh-100 d-flex flex-column"
       style={{ padding: "12px" }}
     >
-      {/* Navbar */}
       <Navbar
         bg="dark"
         variant="dark"
@@ -154,12 +213,23 @@ const LandingHelpdesk: React.FC = () => {
       >
         <Navbar.Brand href="#home">Brand</Navbar.Brand>
         <div className="ms-auto">
-          <Button
-            variant={selectedButton === "signin" ? "primary" : "outline-light"}
-            onClick={() => handleButtonClick("signin")}
-          >
-            Login
-          </Button>
+          {user ? (
+            <Button variant="outline-light" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button
+                variant={
+                  selectedButton === "signin" ? "primary" : "outline-light"
+                }
+                onClick={() => handleButtonClick("signin")}
+                className="me-2"
+              >
+                Login
+              </Button>
+            </>
+          )}
         </div>
       </Navbar>
 
@@ -182,6 +252,7 @@ const LandingHelpdesk: React.FC = () => {
               }`}
               title="FAQ"
               onClick={() => handleIconClick("faq")}
+              style={{ order: user ? 2 : 1 }}
             >
               <FaQuestionCircle size={24} />
             </Nav.Link>
@@ -192,9 +263,23 @@ const LandingHelpdesk: React.FC = () => {
               }`}
               title="Layanan"
               onClick={() => handleIconClick("layanan")}
+              style={{ order: user ? 3 : 2 }}
             >
               <FaHeadset size={24} />
             </Nav.Link>
+            {user && (
+              <Nav.Link
+                href="#tulis"
+                className={`text-light iconbar ${
+                  selectedIcon === "tulis" ? "active" : ""
+                }`}
+                title="Tulis"
+                onClick={() => handleIconClick("tulis")}
+                style={{ order: 1 }}
+              >
+                <FaPencilAlt size={24} />
+              </Nav.Link>
+            )}
           </Nav>
         </Col>
 
@@ -266,7 +351,7 @@ const LandingHelpdesk: React.FC = () => {
               <FaTimes />
             </Button>
           </div>
-          {sidebarRContent && <div>{sidebarRContent}</div>}
+          {user ? null : sidebarRContent}
         </Col>
       </Row>
     </Container>

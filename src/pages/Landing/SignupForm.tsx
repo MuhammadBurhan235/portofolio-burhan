@@ -1,6 +1,4 @@
 import { Button, Form } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { supabase } from "../../supabaseClient";
 import React, { useState } from "react";
 
@@ -20,10 +18,11 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
     setSuccessMessage("");
 
     const { error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+      email,
+      password,
       options: {
-        emailRedirectTo: "http://localhost:5173/portofolio-burhan/tridiporto", // Redirect after email confirmation if needed
+        data: { username },
+        emailRedirectTo: "http://localhost:5173/portofolio-burhan/lphelpdesk", // Redirect after email confirmation if needed
       },
     });
 
@@ -31,7 +30,6 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
       setErrorMessage(error.message);
     } else {
       setSuccessMessage("Check your email for the confirmation link!");
-      // Optionally switch to login
       switchToLogin(); // Automatically switch to login after signup
     }
   };

@@ -1,3 +1,4 @@
+import React, { memo, useMemo } from "react";
 import { Accordion } from "react-bootstrap";
 import { FaThumbsUp } from "react-icons/fa";
 
@@ -14,15 +15,16 @@ interface FaqListProps {
   selectedCategory: string | null;
 }
 
-const FaqList: React.FC<FaqListProps> = ({ faqs, selectedCategory }) => {
-  // Filter FAQ based on the selected category
-  const filteredFaqs =
-    selectedCategory === "All Category"
-      ? faqs
-      : faqs.filter((faq) => faq.category === selectedCategory);
+const FaqList: React.FC<FaqListProps> = memo(({ faqs, selectedCategory }) => {
+  // Memoize filtered and sorted FAQs
+  const sortedFaqs = useMemo(() => {
+    const filteredFaqs =
+      selectedCategory === "All Category"
+        ? faqs
+        : faqs.filter((faq) => faq.category === selectedCategory);
 
-  // Sort filtered FAQs by likes in descending order
-  const sortedFaqs = filteredFaqs.sort((a, b) => b.likes - a.likes);
+    return filteredFaqs.sort((a, b) => b.likes - a.likes);
+  }, [faqs, selectedCategory]);
 
   return (
     <div>
@@ -77,6 +79,6 @@ const FaqList: React.FC<FaqListProps> = ({ faqs, selectedCategory }) => {
       </div>
     </div>
   );
-};
+});
 
 export default FaqList;

@@ -1,14 +1,10 @@
 import { Button, Form } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { supabase } from "../../supabaseClient";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 
 export const SigninForm: React.FC<{ switchToSignup: () => void }> = ({
   switchToSignup,
 }) => {
-  const navigate = useNavigate(); // Initialize navigate
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,15 +17,17 @@ export const SigninForm: React.FC<{ switchToSignup: () => void }> = ({
     setSuccessMessage("");
 
     const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+      email,
+      password,
     });
 
     if (error) {
       setErrorMessage(error.message);
     } else {
       setSuccessMessage("Signin successful!");
-      navigate("http://localhost:5173/portofolio-burhan/tridiporto"); // Redirect after sign-in
+      // Redirect after sign-in
+      window.location.href =
+        "http://localhost:5173/portofolio-burhan/lphelpdesk";
     }
   };
 
