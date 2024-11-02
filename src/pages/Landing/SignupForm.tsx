@@ -2,6 +2,8 @@ import { Button, Form } from "react-bootstrap";
 import { supabase } from "../../supabaseClient";
 import React, { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
   switchToLogin,
 }) => {
@@ -10,6 +12,7 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +25,6 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
       password,
       options: {
         data: { username },
-        // Hapus emailRedirectTo
       },
     });
 
@@ -32,7 +34,7 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
       setSuccessMessage("Registration successful! Redirecting...");
 
       // Langsung alihkan pengguna setelah pendaftaran berhasil
-      window.location.href = "/portofolio-burhan/dbcustomer"; // Ganti dengan URL tujuan Anda
+      navigate("/portofolio-burhan/dbcustomer");
     }
   };
 
