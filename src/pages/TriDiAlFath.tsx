@@ -14,7 +14,7 @@ interface Kab {
   nama: string;
 }
 
-export function TriDiAlFath() {
+export default function TriDiAlFath() {
   const [depPusatInfoList, setDepPusatInfoList] = useState<DepPusat[]>([]);
   const [kabInfoList, setKabInfoList] = useState<Kab[]>([]);
 

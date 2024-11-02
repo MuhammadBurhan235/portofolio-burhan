@@ -3,14 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { FaTimes } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { SigninForm } from "./SigninForm";
-import { SignupForm } from "./SignupForm";
+import { SigninForm } from "../Landing/SigninForm";
+import { SignupForm } from "../Landing/SignupForm";
 import { supabase } from "../../supabaseClient";
-import FaqList from "./FaqList"; // Import komponen FAQ
-import LayananList from "./LayananList";
+import FaqList from "../Landing/FaqList"; // Import komponen FAQ
+import LayananList from "../Landing/LayananList";
 import { Session } from "@supabase/supabase-js";
-import CustomNavbar from "./Navbar";
-import { CustomIconbar } from "./Iconbar";
+import CustomNavbar from "../Landing/Navbar";
+import { CustomIconbar } from "../Landing/Iconbar";
 
 interface faq {
   id: number;
@@ -28,7 +28,7 @@ interface layanan {
   deskripsi: string;
 }
 
-const LandingHelpdesk: React.FC = () => {
+const DashboardCustomer: React.FC = () => {
   const [sidebarLData, setSidebarLData] = useState<string[]>([]);
   const [sidebarRContent, setSidebarRContent] = useState<JSX.Element | null>(
     null
@@ -119,11 +119,9 @@ const LandingHelpdesk: React.FC = () => {
 
         const categories = ["All Category", ...sortedCategories]; // Tambahkan "All Category" ke daftar
         setFaqCategory(categories);
-        setSidebarLData(categories); // Set sidebarLData dengan kategori
-        setMainbarContent(
-          <FaqList faqs={data} selectedCategory="All Category" />
-        ); // Set mainbarContent dengan FAQ default
-        setSelectedIcon("faq"); // Set FAQ icon as active by default
+        setSidebarLData([]); // Set sidebarLData dengan kategori
+        setMainbarContent(null); // Set mainbarContent dengan FAQ default
+        setSelectedIcon("tulis"); // Set FAQ icon as active by default
       }
     };
 
@@ -273,6 +271,7 @@ const LandingHelpdesk: React.FC = () => {
         >
           {/* Scrollable FAQ List Container */}
           {mainbarContent}
+          {/* Gunakan komponen FAQ */}
         </Col>
 
         {/* Sidebar Login/Signup with Close Button */}
@@ -302,4 +301,4 @@ const LandingHelpdesk: React.FC = () => {
   );
 };
 
-export default LandingHelpdesk;
+export default DashboardCustomer;

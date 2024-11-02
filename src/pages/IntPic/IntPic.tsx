@@ -35,7 +35,7 @@ interface IntPicData {
   keterangan: string;
 }
 
-export function IntPic() {
+export default function IntPic() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   const [intPics, setIntPics] = useState<IntPic[]>([]);
   const [intPicDatas, setIntPicDatas] = useState<IntPicData[]>([]);

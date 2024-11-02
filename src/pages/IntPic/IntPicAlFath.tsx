@@ -30,7 +30,7 @@ interface Kab {
   nama: string;
 }
 
-export function IntPicAlFath() {
+export default function IntPicAlFath() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   const [intPics, setIntPics] = useState<IntPic[]>([]);
   const [selectedImage, setSelectedImage] = useState<{

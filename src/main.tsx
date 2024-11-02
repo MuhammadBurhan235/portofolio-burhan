@@ -1,74 +1,128 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { IntPic } from "./pages/IntPic/IntPic.tsx";
-import { List } from "./pages/List.tsx";
-import { CheckPosi } from "./pages/IntPic/CheckPosi.tsx";
-import { TriDiAlFath } from "./pages/TriDiAlFath.tsx";
-import { IntPicAlFath } from "./pages/IntPic/IntPicAlFath.tsx";
-import { TriDIPorto } from "./pages/TriDi/TriDIPorto.tsx";
-import { LandingAlFath } from "./pages/Landing/LandingAlFath.tsx";
-// import { LandingAlFathCopy } from "./pages/Landing/LandingAlFathCopy.tsx";
-import DashboardAdmin from "./pages/AdminMasjid/DashboardAdmin.tsx";
-import { ImageGallery } from "./pages/AdminMasjid/ImageGallery.tsx";
-import { MasjidMap } from "./pages/AdminMasjid/MasjidMap.tsx";
-import LandingHelpdesk from "./pages/Landing/LandingHelpdesk.tsx";
+import LoadingSpinner from "./LoadingSpinner";
+
+const App = lazy(() => import("./App"));
+const IntPic = lazy(() => import("./pages/IntPic/IntPic"));
+const List = lazy(() => import("./pages/List"));
+const CheckPosi = lazy(() => import("./pages/IntPic/CheckPosi"));
+const TriDiAlFath = lazy(() => import("./pages/TriDiAlFath"));
+const IntPicAlFath = lazy(() => import("./pages/IntPic/IntPicAlFath"));
+const TriDIPorto = lazy(() => import("./pages/TriDi/TriDIPorto"));
+const LandingAlFath = lazy(() => import("./pages/Landing/LandingAlFath"));
+const DashboardAdmin = lazy(() => import("./pages/AdminMasjid/DashboardAdmin"));
+const ImageGallery = lazy(() => import("./pages/AdminMasjid/ImageGallery"));
+const MasjidMap = lazy(() => import("./pages/AdminMasjid/MasjidMap"));
+const LandingHelpdesk = lazy(() => import("./pages/Landing/LandingHelpdesk"));
+const DashboardCustomer = lazy(
+  () => import("./pages/Dashboard/DashboardCustomer")
+);
 
 const router = createBrowserRouter([
   {
     path: "/portofolio-burhan/",
-    element: <App />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <App />
+      </Suspense>
+    ),
     children: [
       {
-        path: "/portofolio-burhan/tridiporto",
-        element: <TriDIPorto />,
+        path: "tridiporto",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <TriDIPorto />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/intpicburhan",
-        element: <IntPic />,
+        path: "intpicburhan",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <IntPic />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/lpalfath1",
-        element: <LandingAlFath />,
-      },
-      // {
-      //   path: "/portofolio-burhan/lpalfathcopy",
-      //   element: <LandingAlFathCopy />,
-      // },
-      {
-        path: "/portofolio-burhan/tridialfath1",
-        element: <TriDiAlFath />,
+        path: "lpalfath1",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LandingAlFath />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/intpicalfath1",
-        element: <IntPicAlFath />,
+        path: "tridialfath1",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <TriDiAlFath />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/list1",
-        element: <List />,
+        path: "intpicalfath1",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <IntPicAlFath />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/checkposi1",
-        element: <CheckPosi />,
+        path: "list1",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <List />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/dsadmin1",
-        element: <DashboardAdmin />,
+        path: "checkposi1",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <CheckPosi />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/imggallery",
-        element: <ImageGallery />,
+        path: "dsadmin1",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <DashboardAdmin />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/masjidmap",
-        element: <MasjidMap />,
+        path: "imggallery",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <ImageGallery />
+          </Suspense>
+        ),
       },
       {
-        path: "/portofolio-burhan/lphelpdesk",
-        element: <LandingHelpdesk />,
+        path: "masjidmap",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <MasjidMap />
+          </Suspense>
+        ),
+      },
+      {
+        path: "lphelpdesk",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LandingHelpdesk />
+          </Suspense>
+        ),
+      },
+      {
+        path: "dbcustomer",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <DashboardCustomer />
+          </Suspense>
+        ),
       },
     ],
   },

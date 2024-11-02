@@ -8,7 +8,7 @@ type Pin = {
   tag: string;
 };
 
-export const MasjidMap: React.FC = () => {
+const MasjidMap: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [pins, setPins] = useState<Pin[]>([]);
@@ -172,3 +172,5 @@ blinkStyle.innerHTML = `
   }
 `;
 document.head.appendChild(blinkStyle);
+
+export default MasjidMap;

@@ -18,7 +18,7 @@ const App = () => {
         title = "Portofolio | TriDi Page";
         favicon = "";
         break;
-      case "/portofolio-burhan/lpalfath":
+      case "/portofolio-burhan/lpalfath1":
         title = "Kenal Al-Fath | Landing Page";
         favicon = "";
         break;
@@ -40,6 +40,14 @@ const App = () => {
         break;
       case "/portofolio-burhan/adminmasjid":
         title += "Check Position Page";
+        favicon = "";
+        break;
+      case "/portofolio-burhan/lphelpdesk":
+        title += "Helpdesk BCC | Landing Page";
+        favicon = "";
+        break;
+      case "/portofolio-burhan/dbcustomer":
+        title += "Helpdesk BCC | Dashboard Customer";
         favicon = "";
         break;
       default:

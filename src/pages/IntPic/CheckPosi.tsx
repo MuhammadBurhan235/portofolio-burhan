@@ -2,7 +2,7 @@ import style from "./IntPicPage.module.css";
 import { useFullscreen } from "../../utils/FullscreenUtils";
 import { images } from "../../images";
 
-export function CheckPosi() {
+export default function CheckPosi() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   return (
     <div>

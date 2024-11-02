@@ -148,7 +148,7 @@ body {
 .cardDescription {
   display: -webkit-box; /* Use a flexbox layout for webkit browsers */
   -webkit-box-orient: vertical; /* Set the box orientation to vertical */
-  -webkit-line-clamp: 4; /* Limit the number of lines to 4 */
+  /* -webkit-line-clamp: 4; Limit the number of lines to 4  */
   overflow: hidden; /* Hide the overflow text */
   text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
   max-height: 6em; /* Set a max height based on the line height (4 lines * line-height) */

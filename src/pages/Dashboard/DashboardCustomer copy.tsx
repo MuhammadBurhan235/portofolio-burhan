@@ -1,16 +1,19 @@
-import { Container, Row, Col, Button, Nav } from "react-bootstrap";
+import { Container, Row, Col, Button, Navbar, Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { FaTimes } from "react-icons/fa";
+import {
+  FaHeadset,
+  FaQuestionCircle,
+  FaTimes,
+  FaPencilAlt,
+} from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { SigninForm } from "./SigninForm";
-import { SignupForm } from "./SignupForm";
+import { SigninForm } from "../Landing/SigninForm";
+import { SignupForm } from "../Landing/SignupForm";
 import { supabase } from "../../supabaseClient";
-import FaqList from "./FaqList"; // Import komponen FAQ
-import LayananList from "./LayananList";
+import FaqList from "../Landing/FaqList"; // Import komponen FAQ
+import LayananList from "../Landing/LayananList";
 import { Session } from "@supabase/supabase-js";
-import CustomNavbar from "./Navbar";
-import { CustomIconbar } from "./Iconbar";
 
 interface faq {
   id: number;
@@ -203,12 +206,32 @@ const LandingHelpdesk: React.FC = () => {
       className="vh-100 d-flex flex-column"
       style={{ padding: "12px" }}
     >
-      <CustomNavbar
-        user={user}
-        handleLogout={handleLogout}
-        handleButtonClick={handleButtonClick}
-        selectedButton={selectedButton}
-      />
+      <Navbar
+        bg="dark"
+        variant="dark"
+        style={{ paddingInline: "30px", borderRadius: "15px" }}
+      >
+        <Navbar.Brand href="#home">Brand</Navbar.Brand>
+        <div className="ms-auto">
+          {user ? (
+            <Button variant="outline-light" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button
+                variant={
+                  selectedButton === "signin" ? "primary" : "outline-light"
+                }
+                onClick={() => handleButtonClick("signin")}
+                className="me-2"
+              >
+                Login
+              </Button>
+            </>
+          )}
+        </div>
+      </Navbar>
 
       {/* Row with Gap using Bootstrap g-3 */}
       <Row className="flex-grow-1" style={{ padding: "12px" }}>
@@ -221,11 +244,43 @@ const LandingHelpdesk: React.FC = () => {
             maxWidth: "56px",
           }}
         >
-          <CustomIconbar
-            user={user}
-            handleIconClick={handleIconClick}
-            selectedIcon={selectedIcon}
-          />
+          <Nav className="flex-column">
+            <Nav.Link
+              href="#faq"
+              className={`text-light iconbar ${
+                selectedIcon === "faq" ? "active" : ""
+              }`}
+              title="FAQ"
+              onClick={() => handleIconClick("faq")}
+              style={{ order: user ? 2 : 1 }}
+            >
+              <FaQuestionCircle size={24} />
+            </Nav.Link>
+            <Nav.Link
+              href="#layanan"
+              className={`text-light iconbar ${
+                selectedIcon === "layanan" ? "active" : ""
+              }`}
+              title="Layanan"
+              onClick={() => handleIconClick("layanan")}
+              style={{ order: user ? 3 : 2 }}
+            >
+              <FaHeadset size={24} />
+            </Nav.Link>
+            {user && (
+              <Nav.Link
+                href="#tulis"
+                className={`text-light iconbar ${
+                  selectedIcon === "tulis" ? "active" : ""
+                }`}
+                title="Tulis"
+                onClick={() => handleIconClick("tulis")}
+                style={{ order: 1 }}
+              >
+                <FaPencilAlt size={24} />
+              </Nav.Link>
+            )}
+          </Nav>
         </Col>
 
         {/* Sidebar */}
@@ -273,6 +328,7 @@ const LandingHelpdesk: React.FC = () => {
         >
           {/* Scrollable FAQ List Container */}
           {mainbarContent}
+          {/* Gunakan komponen FAQ */}
         </Col>
 
         {/* Sidebar Login/Signup with Close Button */}

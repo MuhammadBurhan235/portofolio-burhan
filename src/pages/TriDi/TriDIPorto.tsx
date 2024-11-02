@@ -20,7 +20,7 @@ interface Porto {
   keterangan2: string;
 }
 
-export function TriDIPorto() {
+export default function TriDIPorto() {
   const [porto, setPorto] = useState<Porto[]>([]);
 
   useEffect(() => {

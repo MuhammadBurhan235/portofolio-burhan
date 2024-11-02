@@ -8,7 +8,7 @@ type Pin = {
   tag: string;
 };
 
-export const ImageGallery: React.FC = () => {
+const ImageGallery: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [pins, setPins] = useState<Pin[]>([]);
@@ -330,3 +330,5 @@ blinkStyle.innerHTML = `
   }
 `;
 document.head.appendChild(blinkStyle);
+
+export default ImageGallery;

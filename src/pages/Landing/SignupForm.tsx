@@ -22,7 +22,7 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
       password,
       options: {
         data: { username },
-        emailRedirectTo: "http://localhost:5173/portofolio-burhan/lphelpdesk", // Redirect after email confirmation if needed
+        emailRedirectTo: "/portofolio-burhan/dbcustomer", // Redirect after email confirmation if needed
       },
     });
 

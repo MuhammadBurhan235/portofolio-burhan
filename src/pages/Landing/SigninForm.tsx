@@ -25,9 +25,7 @@ export const SigninForm: React.FC<{ switchToSignup: () => void }> = ({
       setErrorMessage(error.message);
     } else {
       setSuccessMessage("Signin successful!");
-      // Redirect after sign-in
-      window.location.href =
-        "http://localhost:5173/portofolio-burhan/lphelpdesk";
+      window.location.replace("/portofolio-burhan/dbcustomer");
     }
   };
 

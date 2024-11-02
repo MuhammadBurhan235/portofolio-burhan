@@ -24,7 +24,7 @@ interface DaysToEvent {
   list_gambar: string; // Assuming this is a comma-separated string
 }
 
-export function LandingAlFath() {
+export default function LandingAlFath() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [daysToEvents, setDaysToEvents] = useState<DaysToEvent[]>([]);
   const [slides, setSlides] = useState<Slide[]>([]); // Initialize slides state

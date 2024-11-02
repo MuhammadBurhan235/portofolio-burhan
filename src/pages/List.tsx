@@ -23,7 +23,7 @@ interface AlFathItem {
   nama: string;
 }
 
-export function List() {
+export default function List() {
   const location = useLocation();
   const navigate = useNavigate();
   const { items, konten } =
