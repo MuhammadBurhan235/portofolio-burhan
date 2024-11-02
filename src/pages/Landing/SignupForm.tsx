@@ -22,15 +22,17 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
       password,
       options: {
         data: { username },
-        emailRedirectTo: "/portofolio-burhan/dbcustomer", // Redirect after email confirmation if needed
+        // Hapus emailRedirectTo
       },
     });
 
     if (error) {
       setErrorMessage(error.message);
     } else {
-      setSuccessMessage("Check your email for the confirmation link!");
-      switchToLogin(); // Automatically switch to login after signup
+      setSuccessMessage("Registration successful! Redirecting...");
+
+      // Langsung alihkan pengguna setelah pendaftaran berhasil
+      window.location.href = "/portofolio-burhan/dbcustomer"; // Ganti dengan URL tujuan Anda
     }
   };
 
