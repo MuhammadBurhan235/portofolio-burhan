@@ -16,16 +16,32 @@ export const SigninForm: React.FC<{ switchToSignup: () => void }> = ({
     setErrorMessage("");
     setSuccessMessage("");
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) {
+    if (data?.user) {
+      const { data: roleData, error: roleError } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("id", data.user.id)
+        .single();
+
+      if (roleError || !roleData) {
+        setErrorMessage("Failed to retrieve user role.");
+        return;
+      }
+
+      if (roleData.role === "admin") {
+        setSuccessMessage("Signin successful!");
+        window.location.replace("/portofolio-burhan/dashboardadmin");
+      } else {
+        setSuccessMessage("Signin successful!");
+        window.location.replace("/portofolio-burhan/dbcustomer");
+      }
+    } else if (error) {
       setErrorMessage(error.message);
-    } else {
-      setSuccessMessage("Signin successful!");
-      window.location.replace("/portofolio-burhan/dbcustomer");
     }
   };
 

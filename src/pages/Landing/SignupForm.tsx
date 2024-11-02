@@ -17,10 +17,7 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setErrorMessage("");
-    setSuccessMessage("");
-
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -28,13 +25,15 @@ export const SignupForm: React.FC<{ switchToLogin: () => void }> = ({
       },
     });
 
-    if (error) {
-      setErrorMessage(error.message);
-    } else {
+    if (data?.user) {
+      // Setelah signup berhasil, masukkan role customer ke tabel user_roles
+      await supabase
+        .from("user_roles")
+        .insert({ id: data.user.id, role: "customer" });
       setSuccessMessage("Registration successful! Redirecting...");
-
-      // Langsung alihkan pengguna setelah pendaftaran berhasil
       navigate("/portofolio-burhan/dbcustomer");
+    } else if (error) {
+      setErrorMessage(error.message);
     }
   };
 
