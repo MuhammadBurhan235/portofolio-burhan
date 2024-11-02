@@ -246,7 +246,7 @@ const LandingHelpdesk: React.FC = () => {
         >
           <Nav className="flex-column">
             <Nav.Link
-              href="#faq"
+              href=""
               className={`text-light iconbar ${
                 selectedIcon === "faq" ? "active" : ""
               }`}
@@ -257,7 +257,7 @@ const LandingHelpdesk: React.FC = () => {
               <FaQuestionCircle size={24} />
             </Nav.Link>
             <Nav.Link
-              href="#layanan"
+              href=""
               className={`text-light iconbar ${
                 selectedIcon === "layanan" ? "active" : ""
               }`}
@@ -269,7 +269,7 @@ const LandingHelpdesk: React.FC = () => {
             </Nav.Link>
             {user && (
               <Nav.Link
-                href="#tulis"
+                href=""
                 className={`text-light iconbar ${
                   selectedIcon === "tulis" ? "active" : ""
                 }`}
