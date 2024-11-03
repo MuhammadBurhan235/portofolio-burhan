@@ -1,8 +1,8 @@
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button, Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { FaTimes } from "react-icons/fa";
-import React, { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import { SigninForm } from "../Landing/SigninForm";
 import { SignupForm } from "../Landing/SignupForm";
 import { supabase } from "../../supabaseClient";
@@ -11,8 +11,7 @@ import LayananList from "../Landing/LayananList";
 import { Session } from "@supabase/supabase-js";
 import CustomNavbar from "../Landing/Navbar";
 import { CustomIconbar } from "../Landing/Iconbar";
-import StartChat from "../Landing/StartChat";
-import SidebarLContent from "../Landing/SidebarL";
+import ChatList from "../Landing/ChatList";
 
 interface faq {
   id: number;
@@ -31,7 +30,7 @@ interface layanan {
 }
 
 const DashboardCustomer: React.FC = () => {
-  const [sidebarLData, setSidebarLData] = useState<JSX.Element | null>(null);
+  const [sidebarLData, setSidebarLData] = useState<string[]>([]);
   const [sidebarRContent, setSidebarRContent] = useState<JSX.Element | null>(
     null
   );
@@ -40,16 +39,12 @@ const DashboardCustomer: React.FC = () => {
   );
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
-
   const [faqs, setFaqs] = useState<faq[]>([]);
   const [layanans, setLayanans] = useState<layanan[]>([]);
   const [faqCategory, setFaqCategory] = useState<string[]>([]);
   const [user, setUser] = useState<Session | null>(null);
-  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
-  const [messageData, setMessageData] = useState<
-    Array<{ question: string | null; answer: string | null }>
-  >([]);
-  const [newQuestion, setNewQuestion] = useState<string>("");
+
+  // const [isSigningUp, setIsSigningUp] = useState(false);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -125,7 +120,7 @@ const DashboardCustomer: React.FC = () => {
 
         const categories = ["All Category", ...sortedCategories]; // Tambahkan "All Category" ke daftar
         setFaqCategory(categories);
-        setSidebarLData(null); // Set sidebarLData dengan kategori
+        setSidebarLData([]); // Set sidebarLData dengan kategori
         setMainbarContent(null); // Set mainbarContent dengan FAQ default
         setSelectedIcon("tulis"); // Set FAQ icon as active by default
       }
@@ -147,134 +142,23 @@ const DashboardCustomer: React.FC = () => {
     fetchLayanans();
   }, []);
 
-  const handleChatSelection = async (chatId: string) => {
-    setSelectedChatId(chatId);
-    fetchMessageData(chatId); // Fetch message data when a chat is selected
-  };
-
-  // Fetch message data for a selected chat
-  const fetchMessageData = async (chatId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from("messages")
-        .select("question, answer")
-        .eq("chats_id", chatId)
-        .order("timestamp", { ascending: true }); // Urutkan berdasarkan timestamp
-
-      if (error) {
-        console.error("Error fetching message data:", error);
-        alert("Error fetching message data: " + error.message);
-      } else {
-        setMessageData(data || []); // Ambil semua pesan yang sesuai dengan chatId
-      }
-    } catch (error) {
-      console.error("Unexpected error:", error);
-      alert("An unexpected error occurred while fetching message data.");
-    }
-  };
-
-  // Handle question submission by the customer
-  const handleQuestionSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (selectedChatId && newQuestion) {
-      try {
-        // Get the current user
-        const {
-          data: { user },
-          error: userError,
-        } = await supabase.auth.getUser();
-        if (userError) {
-          console.error("Error fetching user:", userError);
-          alert("Error fetching user information.");
-          return;
-        }
-
-        const { error } = await supabase.from("messages").insert([
-          {
-            chats_id: selectedChatId,
-            customer_id: user?.id, // Access user ID here
-            question: newQuestion,
-            answer: null, // Answer is initially null
-            admin_id: null,
-          },
-        ]);
-
-        if (error) {
-          console.error("Error sending message:", error);
-          alert("Error sending message: " + error.message);
-        } else {
-          alert("Message sent!");
-          setNewQuestion(""); // Clear the input field
-          fetchMessageData(selectedChatId); // Refresh messages to include the new question
-        }
-      } catch (error) {
-        console.error("Unexpected error:", error);
-        alert("An unexpected error occurred while sending message.");
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (messageData) {
-      setMainbarContent(
-        <div>
-          {messageData.map((message, index) => (
-            <div key={index} className="mb-2">
-              {message.question && (
-                <div className="d-flex justify-content-end mb-1">
-                  <div className="p-2 bg-primary text-white rounded">
-                    <strong>Question:</strong> {message.question}
-                  </div>
-                </div>
-              )}
-              {message.answer && (
-                <div className="d-flex justify-content-start mb-1">
-                  <div className="p-2 bg-secondary text-white rounded">
-                    <strong>Answer:</strong> {message.answer}
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-          <Form onSubmit={handleQuestionSubmit} className="d-flex mt-2">
-            <Form.Control
-              type="text"
-              placeholder="Type a message"
-              value={newQuestion}
-              onChange={(e) => setNewQuestion(e.target.value)}
-            />
-            <Button variant="primary" type="submit" className="ms-2">
-              Send
-            </Button>
-          </Form>
-        </div>
-      );
-    }
-  }, [messageData, newQuestion]);
-
   // Icon click handler for left sidebar
   const handleIconClick = (icon: string) => {
     setSelectedIcon(icon);
 
     if (icon === "faq") {
-      setSidebarLData(
-        <SidebarLContent
-          sidebarLData={faqCategory}
-          handleClose={() => handleCloseSidebar("left")}
-          handleCategoryClick={handleCategoryClick}
-        />
-      );
+      setSidebarLData(faqCategory);
       setMainbarContent(
         <FaqList faqs={faqs} selectedCategory="All Category" />
       );
     } else if (icon === "layanan") {
-      setSidebarLData(null);
+      setSidebarLData([]);
       setMainbarContent(<LayananList layananData={layanans} />);
     } else if (icon === "tulis") {
-      setSidebarLData(<StartChat handleChatClick={handleChatSelection} />);
-      // setMainbarContent(<p>{selectedChatId}</p>);
+      setSidebarLData([]);
+      setMainbarContent(<ChatList />);
     } else {
-      setSidebarLData(null);
+      setSidebarLData([]);
       setMainbarContent(null); // Reset mainbar content jika tidak ada yang dipilih
     }
   };
@@ -286,7 +170,7 @@ const DashboardCustomer: React.FC = () => {
 
   const handleCloseSidebar = (sidebar: string) => {
     if (sidebar === "left") {
-      setSidebarLData(null);
+      setSidebarLData([]);
     } else if (sidebar === "right") {
       setSidebarRContent(null);
     }
@@ -329,15 +213,31 @@ const DashboardCustomer: React.FC = () => {
           style={{
             borderRadius: "15px",
             marginRight: "12px",
-            maxWidth: sidebarLData ? "210px" : "0px",
-            minWidth: sidebarLData ? "210px" : "0px",
+            maxWidth: sidebarLData.length > 0 ? "210px" : "0px",
+            minWidth: sidebarLData.length > 0 ? "210px" : "0px",
             transition:
               "max-width 0.3s ease-in-out, min-width 0.3s ease-in-out",
             overflow: "hidden",
-            border: sidebarLData ? "solid 1px" : "solid 0px",
+            border: sidebarLData.length > 0 ? "solid 1px" : "solid 0px",
           }}
         >
-          {sidebarLData}
+          <div className="d-flex justify-content-end">
+            <Button variant="link" onClick={() => handleCloseSidebar("left")}>
+              <FaTimes />
+            </Button>
+          </div>
+          <Nav className="flex-column">
+            {sidebarLData.map((item, index) => (
+              <Nav.Link
+                key={index}
+                href="#item"
+                className="text-dark"
+                onClick={() => handleCategoryClick(item)} // Handle klik kategori
+              >
+                {item}
+              </Nav.Link>
+            ))}
+          </Nav>
         </Col>
 
         {/* Mainbar */}

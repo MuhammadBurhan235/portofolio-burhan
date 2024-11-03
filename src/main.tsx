@@ -11,13 +11,16 @@ const TriDiAlFath = lazy(() => import("./pages/TriDiAlFath"));
 const IntPicAlFath = lazy(() => import("./pages/IntPic/IntPicAlFath"));
 const TriDIPorto = lazy(() => import("./pages/TriDi/TriDIPorto"));
 const LandingAlFath = lazy(() => import("./pages/Landing/LandingAlFath"));
-const DashboardAdmin = lazy(() => import("./pages/AdminMasjid/DashboardAdmin"));
+const DashboardAdmina = lazy(
+  () => import("./pages/AdminMasjid/DashboardAdmin")
+);
 const ImageGallery = lazy(() => import("./pages/AdminMasjid/ImageGallery"));
 const MasjidMap = lazy(() => import("./pages/AdminMasjid/MasjidMap"));
 const LandingHelpdesk = lazy(() => import("./pages/Landing/LandingHelpdesk"));
 const DashboardCustomer = lazy(
   () => import("./pages/Dashboard/DashboardCustomer")
 );
+const DashboardAdmin = lazy(() => import("./pages/Dashboard/DashboardAdmin"));
 
 const router = createBrowserRouter([
   {
@@ -121,6 +124,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <DashboardCustomer />
+          </Suspense>
+        ),
+      },
+      {
+        path: "dashboardadmin",
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <DashboardAdmin />
           </Suspense>
         ),
       },
