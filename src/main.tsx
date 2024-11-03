@@ -11,9 +11,9 @@ const TriDiAlFath = lazy(() => import("./pages/TriDiAlFath"));
 const IntPicAlFath = lazy(() => import("./pages/IntPic/IntPicAlFath"));
 const TriDIPorto = lazy(() => import("./pages/TriDi/TriDIPorto"));
 const LandingAlFath = lazy(() => import("./pages/Landing/LandingAlFath"));
-const DashboardAdmina = lazy(
-  () => import("./pages/AdminMasjid/DashboardAdmin")
-);
+// const DashboardAdmina = lazy(
+//   () => import("./pages/AdminMasjid/DashboardAdmin")
+// );
 const ImageGallery = lazy(() => import("./pages/AdminMasjid/ImageGallery"));
 const MasjidMap = lazy(() => import("./pages/AdminMasjid/MasjidMap"));
 const LandingHelpdesk = lazy(() => import("./pages/Landing/LandingHelpdesk"));
