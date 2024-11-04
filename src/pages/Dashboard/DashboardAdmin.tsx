@@ -243,7 +243,6 @@ const DashboardAdmin: React.FC = () => {
           console.error("Error sending message:", error);
           alert("Error sending message: " + error.message);
         } else {
-          alert("Message sent!");
           setNewAnswer(""); // Clear the input field
           fetchMessageData(selectedChatId); // Refresh messages to include the new question
         }
