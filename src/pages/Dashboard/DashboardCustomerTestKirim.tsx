@@ -2,7 +2,7 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { FaTimes } from "react-icons/fa";
-import { useState, useEffect, FormEvent } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { SigninForm } from "../Landing/SigninForm";
 import { SignupForm } from "../Landing/SignupForm";
 import { supabase } from "../../supabaseClient";
@@ -30,7 +30,7 @@ interface layanan {
   deskripsi: string;
 }
 
-const DashboardAdmin: React.FC = () => {
+const DashboardCustomer: React.FC = () => {
   const [sidebarLData, setSidebarLData] = useState<JSX.Element | null>(null);
   const [sidebarRContent, setSidebarRContent] = useState<JSX.Element | null>(
     null
@@ -40,6 +40,7 @@ const DashboardAdmin: React.FC = () => {
   );
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
+
   const [faqs, setFaqs] = useState<faq[]>([]);
   const [layanans, setLayanans] = useState<layanan[]>([]);
   const [faqCategory, setFaqCategory] = useState<string[]>([]);
@@ -48,8 +49,25 @@ const DashboardAdmin: React.FC = () => {
   const [messageData, setMessageData] = useState<
     Array<{ question: string | null; answer: string | null }>
   >([]);
-  const [newAnswer, setNewAnswer] = useState<string>("");
-  const [isTurnToRespond, setIsTurnToRespond] = useState(false);
+  const [newQuestion, setNewQuestion] = useState<string>("");
+  const [admins, setAdmins] = useState<any[]>([]);
+
+  // Ambil daftar admin saat komponen dimuat
+  useEffect(() => {
+    const fetchAdmins = async () => {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("id")
+        .eq("role", "admin");
+      if (error) {
+        console.error("Error fetching admins:", error);
+      } else {
+        setAdmins(data || []);
+      }
+    };
+
+    fetchAdmins();
+  }, []);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -173,9 +191,10 @@ const DashboardAdmin: React.FC = () => {
     }
   };
 
-  const handleAnswerSubmit = async (e: FormEvent) => {
+  // Handle question submission by the customer
+  const handleQuestionSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (selectedChatId && newAnswer) {
+    if (selectedChatId && newQuestion) {
       try {
         // Get the current user
         const {
@@ -187,55 +206,15 @@ const DashboardAdmin: React.FC = () => {
           alert("Error fetching user information.");
           return;
         }
-
-        // Check if the admin can answer (based on the latest message admin_id)
-        const { data: lastMessageData, error: lastMessageError } =
-          await supabase
-            .from("messages")
-            .select("admin_id")
-            .eq("chats_id", selectedChatId)
-            .order("timestamp", { ascending: false })
-            .limit(1)
-            .single();
-
-        if (lastMessageError) {
-          console.error("Error fetching last message:", lastMessageError);
-          alert("Error fetching last message.");
-          return;
-        }
-
-        // Allow response only if last admin_id matches current admin or is null (first response)
-        if (
-          lastMessageData?.admin_id &&
-          lastMessageData.admin_id !== user?.id
-        ) {
-          alert("It's not your turn to respond.");
-          return;
-        }
-
-        // Since the admin can respond, set isTurnToRespond to true
-        setIsTurnToRespond(true);
-
-        // Fetch customer_id from the related chat
-        const { data: chatData, error: chatError } = await supabase
-          .from("chats")
-          .select("customer_id")
-          .eq("id", selectedChatId)
-          .single();
-
-        if (chatError || !chatData) {
-          console.error("Error fetching chat data:", chatError);
-          alert("Error fetching chat information.");
-          return;
-        }
-
-        // Insert the answer into messages table
+        const randomAdmin = admins[Math.floor(Math.random() * admins.length)];
+        const adminId = randomAdmin ? randomAdmin.id : null;
         const { error } = await supabase.from("messages").insert([
           {
             chats_id: selectedChatId,
-            admin_id: user?.id,
-            answer: newAnswer,
-            customer_id: chatData.customer_id,
+            customer_id: user?.id,
+            question: newQuestion,
+            answer: null,
+            admin_id: adminId,
           },
         ]);
 
@@ -244,7 +223,7 @@ const DashboardAdmin: React.FC = () => {
           alert("Error sending message: " + error.message);
         } else {
           alert("Message sent!");
-          setNewAnswer(""); // Clear the input field
+          setNewQuestion(""); // Clear the input field
           fetchMessageData(selectedChatId); // Refresh messages to include the new question
         }
       } catch (error) {
@@ -255,92 +234,42 @@ const DashboardAdmin: React.FC = () => {
   };
 
   useEffect(() => {
-    const checkTurnToRespond = async () => {
-      if (selectedChatId) {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-
-        const { data: lastMessageData } = await supabase
-          .from("messages")
-          .select("admin_id")
-          .eq("chats_id", selectedChatId)
-          .order("timestamp", { ascending: false })
-          .limit(1)
-          .single();
-
-        // Set isTurnToRespond to true only if it's the admin's turn or no previous admin
-        if (
-          !lastMessageData?.admin_id ||
-          lastMessageData.admin_id === user?.id
-        ) {
-          setIsTurnToRespond(true);
-        } else {
-          setIsTurnToRespond(false);
-        }
-      }
-    };
-
-    checkTurnToRespond();
-  }, [selectedChatId, messageData]);
-
-  useEffect(() => {
     if (messageData) {
       setMainbarContent(
-        <div
-          className="d-flex flex-column"
-          style={{
-            height: "450px",
-            border: "1px solid #ccc",
-            borderRadius: "10px",
-            padding: "10px",
-          }}
-        >
-          {/* Scrollable message container */}
-          <div
-            className="flex-grow-1 overflow-auto mb-2"
-            style={{ maxHeight: "400px" }}
-          >
-            {messageData.map((message, index) => (
-              <div key={index} className="mb-2">
-                {message.answer && (
-                  <div className="d-flex justify-content-end mb-1">
-                    <div className="p-2 bg-primary text-white rounded">
-                      <strong>Admin:</strong> {message.answer}
-                    </div>
+        <div>
+          {messageData.map((message, index) => (
+            <div key={index} className="mb-2">
+              {message.question && (
+                <div className="d-flex justify-content-end mb-1">
+                  <div className="p-2 bg-primary text-white rounded">
+                    <strong>Question:</strong> {message.question}
                   </div>
-                )}
-                {message.question && (
-                  <div className="d-flex justify-content-start mb-1">
-                    <div className="p-2 bg-secondary text-white rounded">
-                      <strong>Customer:</strong> {message.question}
-                    </div>
+                </div>
+              )}
+              {message.answer && (
+                <div className="d-flex justify-content-start mb-1">
+                  <div className="p-2 bg-secondary text-white rounded">
+                    <strong>Answer:</strong> {message.answer}
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Fixed form at the bottom */}
-          <Form onSubmit={handleAnswerSubmit} className="d-flex mt-2">
+                </div>
+              )}
+            </div>
+          ))}
+          <Form onSubmit={handleQuestionSubmit} className="d-flex mt-2">
             <Form.Control
               type="text"
               placeholder="Type a message"
-              value={newAnswer}
-              onChange={(e) => setNewAnswer(e.target.value)}
+              value={newQuestion}
+              onChange={(e) => setNewQuestion(e.target.value)}
             />
-            <Button
-              variant={isTurnToRespond ? "primary" : "danger"}
-              type="submit"
-              className="ms-2"
-            >
-              Kirim
+            <Button variant="primary" type="submit" className="ms-2">
+              Send
             </Button>
           </Form>
         </div>
       );
     }
-  }, [messageData, newAnswer, isTurnToRespond]);
+  }, [messageData, newQuestion]);
 
   // Icon click handler for left sidebar
   const handleIconClick = (icon: string) => {
@@ -362,7 +291,7 @@ const DashboardAdmin: React.FC = () => {
       setMainbarContent(<LayananList layananData={layanans} />);
     } else if (icon === "tulis") {
       setSidebarLData(<StartChat handleChatClick={handleChatSelection} />);
-      setMainbarContent(<p className="text-center">Silahkan pilih chat!</p>);
+      // setMainbarContent(<p>{selectedChatId}</p>);
     } else {
       setSidebarLData(null);
       setMainbarContent(null); // Reset mainbar content jika tidak ada yang dipilih
@@ -472,4 +401,4 @@ const DashboardAdmin: React.FC = () => {
   );
 };
 
-export default DashboardAdmin;
+export default DashboardCustomer;

@@ -50,6 +50,24 @@ const DashboardCustomer: React.FC = () => {
     Array<{ question: string | null; answer: string | null }>
   >([]);
   const [newQuestion, setNewQuestion] = useState<string>("");
+  const [admins, setAdmins] = useState<any[]>([]);
+
+  // Ambil daftar admin saat komponen dimuat
+  useEffect(() => {
+    const fetchAdmins = async () => {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("id")
+        .eq("role", "admin");
+      if (error) {
+        console.error("Error fetching admins:", error);
+      } else {
+        setAdmins(data || []);
+      }
+    };
+
+    fetchAdmins();
+  }, []);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -188,14 +206,15 @@ const DashboardCustomer: React.FC = () => {
           alert("Error fetching user information.");
           return;
         }
-
+        const randomAdmin = admins[Math.floor(Math.random() * admins.length)];
+        const adminId = randomAdmin ? randomAdmin.id : null;
         const { error } = await supabase.from("messages").insert([
           {
             chats_id: selectedChatId,
-            customer_id: user?.id, // Access user ID here
+            customer_id: user?.id,
             question: newQuestion,
-            answer: null, // Answer is initially null
-            admin_id: null,
+            answer: null,
+            admin_id: adminId,
           },
         ]);
 
@@ -203,7 +222,6 @@ const DashboardCustomer: React.FC = () => {
           console.error("Error sending message:", error);
           alert("Error sending message: " + error.message);
         } else {
-          alert("Message sent!");
           setNewQuestion(""); // Clear the input field
           fetchMessageData(selectedChatId); // Refresh messages to include the new question
         }
@@ -217,25 +235,41 @@ const DashboardCustomer: React.FC = () => {
   useEffect(() => {
     if (messageData) {
       setMainbarContent(
-        <div>
-          {messageData.map((message, index) => (
-            <div key={index} className="mb-2">
-              {message.question && (
-                <div className="d-flex justify-content-end mb-1">
-                  <div className="p-2 bg-primary text-white rounded">
-                    <strong>Question:</strong> {message.question}
+        <div
+          className="d-flex flex-column"
+          style={{
+            height: "450px",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+            padding: "10px",
+          }}
+        >
+          {/* Scrollable message container */}
+          <div
+            className="flex-grow-1 overflow-auto mb-2"
+            style={{ maxHeight: "400px" }}
+          >
+            {messageData.map((message, index) => (
+              <div key={index} className="mb-2">
+                {message.question && (
+                  <div className="d-flex justify-content-end mb-1">
+                    <div className="p-2 bg-primary text-white rounded">
+                      <strong>Customer:</strong> {message.question}
+                    </div>
                   </div>
-                </div>
-              )}
-              {message.answer && (
-                <div className="d-flex justify-content-start mb-1">
-                  <div className="p-2 bg-secondary text-white rounded">
-                    <strong>Answer:</strong> {message.answer}
+                )}
+                {message.answer && (
+                  <div className="d-flex justify-content-start mb-1">
+                    <div className="p-2 bg-secondary text-white rounded">
+                      <strong>Admin:</strong> {message.answer}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Fixed form at the bottom */}
           <Form onSubmit={handleQuestionSubmit} className="d-flex mt-2">
             <Form.Control
               type="text"
@@ -244,7 +278,7 @@ const DashboardCustomer: React.FC = () => {
               onChange={(e) => setNewQuestion(e.target.value)}
             />
             <Button variant="primary" type="submit" className="ms-2">
-              Send
+              Kirim
             </Button>
           </Form>
         </div>
@@ -272,7 +306,9 @@ const DashboardCustomer: React.FC = () => {
       setMainbarContent(<LayananList layananData={layanans} />);
     } else if (icon === "tulis") {
       setSidebarLData(<StartChat handleChatClick={handleChatSelection} />);
-      // setMainbarContent(<p>{selectedChatId}</p>);
+      setMainbarContent(
+        <p className="text-center">Silahkan mulai chat atau pilih chat!</p>
+      );
     } else {
       setSidebarLData(null);
       setMainbarContent(null); // Reset mainbar content jika tidak ada yang dipilih

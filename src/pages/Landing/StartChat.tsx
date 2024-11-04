@@ -9,19 +9,70 @@ interface StartChatProps {
 // StartChat Component
 const StartChat: React.FC<StartChatProps> = ({ handleChatClick }) => {
   const [chats, setChats] = useState<any[]>([]);
+  const [role, setRole] = useState<string | null>(null);
+
+  const fetchUserRole = async () => {
+    const { data: { user } = { user: null }, error } =
+      await supabase.auth.getUser();
+
+    if (error) {
+      console.error("Error fetching user:", error);
+      alert("Error fetching user information.");
+      return;
+    }
+
+    if (user) {
+      const { data: roleData, error: roleError } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+      if (roleError) {
+        console.error("Error fetching role:", roleError);
+        alert("Error fetching role: " + roleError.message);
+      } else {
+        setRole(roleData?.role || null);
+      }
+    }
+  };
 
   const fetchChats = async () => {
     try {
-      const { data, error } = await supabase
-        .from("chats")
-        .select("*")
-        .order("timestamp", { ascending: false });
+      if (role === "customer") {
+        // Fetch chats for customer
+        const { data, error } = await supabase
+          .from("chats")
+          .select("*")
+          .eq("customer_id", (await supabase.auth.getUser()).data.user?.id)
+          .order("timestamp", { ascending: false });
 
-      if (error) {
-        console.error("Error fetching chats:", error);
-        alert(`Error fetching chats: ${error.message}`);
-      } else {
-        setChats(data || []);
+        if (error) {
+          console.error("Error fetching chats:", error);
+          alert(`Error fetching chats: ${error.message}`);
+        } else {
+          setChats(data || []);
+        }
+      } else if (role === "admin") {
+        // Fetch latest messages for each chat ID for admin
+        const { data, error } = await supabase
+          .from("messages")
+          .select("chats_id, question, answer, timestamp")
+          .order("timestamp", { ascending: false });
+
+        if (error) {
+          console.error("Error fetching messages:", error);
+          alert(`Error fetching messages: ${error.message}`);
+        } else {
+          // Group messages by `chats_id` to get the latest message per chat
+          const latestMessages = data.reduce((acc: any[], msg: any) => {
+            if (!acc.some((m) => m.chats_id === msg.chats_id)) {
+              acc.push(msg);
+            }
+            return acc;
+          }, []);
+          setChats(latestMessages);
+        }
       }
     } catch (error) {
       console.error("Unexpected error:", error);
@@ -55,18 +106,17 @@ const StartChat: React.FC<StartChatProps> = ({ handleChatClick }) => {
           console.error("Error starting chat:", chatError);
           alert("Error starting chat: " + chatError.message);
         } else {
-          const chatId = chatData[0].id; // Get the ID of the newly created chat
+          const chatId = chatData[0].id;
 
-          // Insert a message into messages table without question and admin_id
           const { error: messageError } = await supabase
             .from("messages")
             .insert([
               {
                 chats_id: chatId,
                 customer_id: user.id,
-                question: null, // Initially, there is no question
-                answer: null, // Initially, there is no answer
-                admin_id: null, // No admin assigned yet
+                question: null,
+                answer: null,
+                admin_id: null,
               },
             ]);
 
@@ -75,7 +125,7 @@ const StartChat: React.FC<StartChatProps> = ({ handleChatClick }) => {
             alert("Error starting chat: " + messageError.message);
           } else {
             alert("Chat started!");
-            fetchChats(); // Refresh chat list after starting a chat
+            fetchChats();
           }
         }
       } else {
@@ -88,38 +138,52 @@ const StartChat: React.FC<StartChatProps> = ({ handleChatClick }) => {
   };
 
   useEffect(() => {
-    fetchChats(); // Fetch chats on component mount
+    fetchUserRole();
   }, []);
+
+  useEffect(() => {
+    if (role) fetchChats();
+  }, [role]);
 
   return (
     <Container className="my-4">
-      <div className="d-flex justify-content-center mb-4">
-        <Button variant="primary" onClick={startChat}>
-          Start Chat
-        </Button>
-      </div>
+      {role === "customer" && (
+        <div className="d-flex justify-content-center mb-4">
+          <Button variant="primary" onClick={startChat}>
+            Mulai Chat
+          </Button>
+        </div>
+      )}
 
-      <h3 className="text-center mb-3">Your Chats</h3>
+      <h3 className="text-center mb-3">Chat KITA!</h3>
       {chats.length > 0 ? (
         <div className="d-flex flex-column">
           {chats.map((chat) => (
             <Card
-              key={chat.id}
+              key={chat.chats_id || chat.id}
               className="mb-3 shadow-sm"
-              onClick={() => handleChatClick(chat.id)}
+              onClick={() => handleChatClick(chat.chats_id || chat.id)}
               style={{ cursor: "pointer" }}
             >
               <Card.Body className="d-flex flex-column">
                 <Card.Subtitle className="mb-2 text-muted">
                   {new Date(chat.timestamp).toLocaleString()}
                 </Card.Subtitle>
-                <Card.Text>Status: {chat.status}</Card.Text>
+                {role === "customer" ? (
+                  <Card.Text>Status: {chat.status}</Card.Text>
+                ) : (
+                  <Card.Text>Question: {chat.question}</Card.Text>
+                )}
               </Card.Body>
             </Card>
           ))}
         </div>
+      ) : role === "customer" ? (
+        <p className="text-center">
+          Anda belum memiliki chat, silahkan Mulai Chat!
+        </p>
       ) : (
-        <p className="text-center">No chats available.</p>
+        <p className="text-center">Belum ada customer hari ini :(</p>
       )}
     </Container>
   );
