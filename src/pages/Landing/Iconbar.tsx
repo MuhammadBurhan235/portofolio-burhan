@@ -1,7 +1,12 @@
 import { Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { FaHeadset, FaQuestionCircle, FaPencilAlt } from "react-icons/fa";
+import {
+  FaHeadset,
+  FaQuestionCircle,
+  FaPencilAlt,
+  FaMoneyBillWave,
+} from "react-icons/fa";
 import { Session } from "@supabase/supabase-js";
 import "../../App.css";
 
@@ -77,6 +82,17 @@ export const CustomIconbar: React.FC<NavbarProps> = ({
             style={{ order: user ? 3 : 2 }}
           >
             <FaHeadset size={24} />
+          </Nav.Link>
+          <Nav.Link
+            href="#chartpengeluaran"
+            className={`text-light iconbar ${
+              selectedIcon === "chart" ? "active" : ""
+            }`}
+            title="Chart Pengeluaran"
+            onClick={() => handleIconClick("chart")}
+            style={{ order: user ? 4 : 3 }}
+          >
+            <FaMoneyBillWave size={24} />
           </Nav.Link>
         </>
       )}

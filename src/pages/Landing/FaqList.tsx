@@ -65,9 +65,7 @@ const FaqList: React.FC<FaqListProps> = memo(({ faqs, selectedCategory }) => {
                     alignItems: "center",
                   }}
                 >
-                  <FaThumbsUp style={{ marginRight: "5px" }} />{" "}
-                  {/* Ikon jempol */}
-                  {faq.likes}
+                  <FaThumbsUp style={{ marginRight: "5px" }} /> {faq.likes}
                 </span>
               </Accordion.Header>
               <Accordion.Body

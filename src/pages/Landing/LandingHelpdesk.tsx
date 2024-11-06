@@ -11,6 +11,7 @@ import LayananList from "./LayananList";
 import { Session } from "@supabase/supabase-js";
 import CustomNavbar from "./Navbar";
 import { CustomIconbar } from "./Iconbar";
+import ChartPengeluaran from "./ChartPengeluaran";
 
 interface faq {
   id: number;
@@ -154,10 +155,11 @@ const LandingHelpdesk: React.FC = () => {
       );
     } else if (icon === "layanan") {
       setSidebarLData([]);
+      // setMainbarContent(<LayananList layananData={layanans} />);
       setMainbarContent(<LayananList layananData={layanans} />);
-    } else {
+    } else if (icon === "chart") {
       setSidebarLData([]);
-      setMainbarContent(null); // Reset mainbar content jika tidak ada yang dipilih
+      setMainbarContent(<ChartPengeluaran />);
     }
   };
 
