@@ -1,7 +1,5 @@
 import React, { memo, useMemo } from "react";
 import { Accordion } from "react-bootstrap";
-import { FaThumbsUp } from "react-icons/fa";
-
 interface faq {
   id: number;
   category: string;
@@ -19,7 +17,7 @@ const FaqList: React.FC<FaqListProps> = memo(({ faqs, selectedCategory }) => {
   // Memoize filtered and sorted FAQs
   const sortedFaqs = useMemo(() => {
     const filteredFaqs =
-      selectedCategory === "All Category"
+      selectedCategory === "Semua Kategori"
         ? faqs
         : faqs.filter((faq) => faq.category === selectedCategory);
 
@@ -54,18 +52,6 @@ const FaqList: React.FC<FaqListProps> = memo(({ faqs, selectedCategory }) => {
                   }}
                 >
                   {faq.category}
-                </span>
-                <span
-                  style={{
-                    marginLeft: "10px",
-                    backgroundColor: "#E2F0D9",
-                    padding: "5px",
-                    borderRadius: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <FaThumbsUp style={{ marginRight: "5px" }} /> {faq.likes}
                 </span>
               </Accordion.Header>
               <Accordion.Body
