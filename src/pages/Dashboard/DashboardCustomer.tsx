@@ -13,6 +13,7 @@ import CustomNavbar from "../Landing/Navbar";
 import { CustomIconbar } from "../Landing/Iconbar";
 import StartChat from "../Landing/StartChat";
 import SidebarLContent from "../Landing/SidebarL";
+import ReportsPortal from "../Landing/ReportsPortal";
 
 interface faq {
   id: number;
@@ -309,6 +310,15 @@ const DashboardCustomer: React.FC = () => {
       setMainbarContent(
         <p className="text-center">Silahkan mulai chat atau pilih chat!</p>
       );
+    } else if (icon === "search") {
+      setSidebarLData(
+        <SidebarLContent
+          sidebarLData={faqCategory}
+          handleClose={() => handleCloseSidebar("left")}
+          handleCategoryClick={handleCategoryClick}
+        />
+      );
+      setMainbarContent(<ReportsPortal />);
     } else {
       setSidebarLData(null);
       setMainbarContent(null); // Reset mainbar content jika tidak ada yang dipilih

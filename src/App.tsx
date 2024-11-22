@@ -22,11 +22,11 @@ const App = () => {
         title = "Kenal Al-Fath | Landing Page";
         favicon = "";
         break;
-      case "/portofolio-burhan/tridialfath":
+      case "/portofolio-burhan/tridialfath1":
         title = "Kenal Al-Fath | TriDi Page";
         favicon = "";
         break;
-      case "/portofolio-burhan/intpicalfath":
+      case "/portofolio-burhan/intpicalfath1":
         title = "Kenal Al-Fath | IntPic Page";
         favicon = "";
         break;

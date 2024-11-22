@@ -6,6 +6,7 @@ import {
   FaQuestionCircle,
   FaPencilAlt,
   FaMoneyBillWave,
+  FaSearch,
 } from "react-icons/fa";
 import { Session } from "@supabase/supabase-js";
 import "../../App.css";
@@ -35,6 +36,17 @@ export const CustomIconbar: React.FC<NavbarProps> = ({
             style={{ order: 1 }}
           >
             <FaPencilAlt size={24} />
+          </Nav.Link>
+          <Nav.Link
+            href="#search"
+            className={`text-light iconbar ${
+              selectedIcon === "search" ? "active" : ""
+            }`}
+            title="Search"
+            onClick={() => handleIconClick("search")}
+            style={{ order: 1 }}
+          >
+            <FaSearch size={24} />
           </Nav.Link>
           <Nav.Link
             href="#faq"
